@@ -1,0 +1,73 @@
+@import "../../styles/vairables";
+
+.accountHeader {
+    @include flex(column, center, center);
+    gap: $spacing-lg;
+    position: relative;
+    user-select: none;
+    mix-blend-mode: normal;
+    img {
+        width: $spacing-xl;
+        height: $spacing-xl;
+        object-fit: cover;
+        border-radius: $border-radius-full;
+        cursor: pointer;
+        position: relative;
+        top: $spacing-xs;
+    }
+    &__avatar {
+        cursor: pointer;
+    }
+    &__profile {
+        @include position(fixed, 7rem, null, null, $spacing-lg);
+        @include flex(column, space-between, center);
+        width: fit-content;
+        padding: $spacing-sm;
+        background: #f4ede4bb;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: $border;
+        border-radius: $border-radius-xl;
+        &_upper {
+            @include flex(column, flex-start, flex-start);
+            width: 100%;
+            gap: $spacing-xs;
+            border-bottom: $border;
+            padding-bottom: $spacing-xs;
+            h3 {
+                font-family: $title-font;
+                font-size: $body-font-size;
+                color: $title-color;
+                text-transform: capitalize;
+                letter-spacing: 0.05rem;
+            }
+            p {
+                font-family: $title-font;
+                font-size: $normal-font-size;
+                color: $title-color;
+                letter-spacing: 0.05rem;
+            }
+        }
+        &_lower {
+            @include flex(column, flex-start, flex-start);
+            gap: $spacing-xs;
+            padding-top: $spacing-xs;
+            width: 100%;
+            height: 100%;
+            button {
+                display: flex;
+                font-family: $title-font;
+                font-size: $normal-font-size;
+                color: $title-color;
+                text-transform: capitalize;
+                letter-spacing: 0.05rem;
+                cursor: pointer;
+                &:hover {
+                    color: var(--border-color);
+                }
+            }
+        }
+        
+    }
+}

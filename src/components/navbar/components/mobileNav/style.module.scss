@@ -1,0 +1,26 @@
+@import "../../../../styles/vairables";
+
+.menuListMobile {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    ul {
+        @include flexCenter(column);
+        gap: $spacing-xs;
+        padding: $spacing-sm 0;
+        li {
+            padding: $spacing-xxs;
+            button {
+                background-color: transparent;
+                padding: 0;
+                border: none;
+                &:hover {
+                    background-color: transparent;
+                    color: $border-color;
+                }
+
+            }
+        }
+    }
+}
+

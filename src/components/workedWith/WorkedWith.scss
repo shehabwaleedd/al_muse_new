@@ -1,0 +1,147 @@
+@import "../../styles/vairables";
+
+.faqs {
+    @include flexCenter(column);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    gap: $spacing-xxl;
+    @include respond-to(ipad) {
+        padding: 0rem;
+    }
+    .faqs__container {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        height: 100%;
+        gap: $spacing-sm;
+        padding-top: $spacing-lg;
+        padding: $spacing-lg;
+        transition: $animation-primary;
+        @include respond-to(laptop) {
+            padding: 0rem;
+        }
+        .faq__text {
+            @include flex(column, flex-start, flex-start);
+            align-content: flex-start;
+            transition: $animation-primary;
+            width: 100%;
+            text-align: left;
+            padding-bottom: $spacing-xxl;
+            height: 100%;
+            h2 {
+                font-family: $header-font;
+                color: $title-color;
+                text-transform: uppercase;
+                font-size: $bigger-font-size;
+                letter-spacing: 0.1rem;
+                padding-left: $spacing-sm;
+                user-select: none;
+                @include respond-to(medium-tablet) {
+                    font-size: $normal-font-size;
+                    letter-spacing: 0rem;
+
+                }
+            }
+        }
+        .item-1 {
+            border-bottom: $border;
+            width: 100%;
+
+            &:first-child {
+                border-top: none;
+            }
+            .accordion {
+                @include flex(row, space-between, flex-start);
+                width: 100%;
+                font-size: $body-font-size;
+                font-weight: 500;
+                cursor: pointer;
+                transition: $animation-primary;
+                h2 {
+                    font-family: $body-font;
+                    color: $title-color;
+                    padding-left: $spacing-sm;
+                    font-size: $big-font-size;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1rem;
+                    padding-bottom: $spacing-sm;   
+                    user-select: none;
+                    @include respond-to(laptop) {
+                        padding-left: 0;
+                    }
+                    @include respond-to(phone) {
+                        font-size: $small-font-size;
+                    }
+                }     
+                .title {
+                    width: 100%;
+                }
+                .accCategory {
+                    @include flexCenter(row);
+                    width: 100%;
+                    height: 100%;
+
+                    h3 {
+                        padding-right: $spacing-sm;
+                        font-family: $body-font;
+                        color: $title-color;
+                        font-size: $normal-font-size;
+                        text-transform: uppercase;
+                        letter-spacing: 0.1rem;
+                        text-align: left;
+                        user-select: none;
+                        @include respond-to(laptop) {
+                            display: none;
+                        }
+                    }            
+                    .icon {
+                        width: 100%;
+                        transition: $animation-primary;
+                        font-size: $normal-font-size;
+                        padding-right: $spacing-sm;
+                        font-family: $body-font;
+                        color: $title-color;
+                        @include flex(row, flex-end, center);
+                        text-transform: uppercase;
+                        @include respond-to(phone) {
+                            font-size: $small-font-size;
+                        }
+                    }
+                }       
+                
+                .icon.spin {
+                    transform: rotate(180deg);
+                    transition: $animation-primary;
+                }
+            }
+            .panel {
+                max-height: 0;
+                overflow: hidden;
+                transition: $animation-primary;
+                p {
+                    font-family: $subtitle-font;
+                    color: $title-color;
+                    width: 95%;
+                    letter-spacing: 0.05rem;
+                    padding-left: $spacing-sm;
+                    text-align: justify;
+                    font-size: $normal-font-size;
+                    padding-bottom: $spacing-sm;
+                    user-select: none;
+                    @include respond-to(laptop) {
+                        padding-left: 0;
+                    }
+                    @include respond-to(phone) {
+                        font-size: $small-font-size;
+                        letter-spacing: normal;
+                    }
+                }
+            }
+            .open {
+                max-height: 100%;
+                transition: $animation-primary;
+            }
+        }
+        
+    }
+}

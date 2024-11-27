@@ -1,0 +1,29 @@
+@import "../../../../styles/vairables";
+
+.menuListContainer {
+    overflow: hidden;
+
+    ul {
+        display: flex !important;
+        gap: $spacing-sm;
+        padding-left: $spacing-sm;
+        list-style: none;
+        @media (max-width: 555px) {
+            flex-direction: column;
+        }
+
+        li {
+            button {
+                background-color: transparent;
+                padding: 0;
+                border: none;
+
+                &:hover {
+                    background-color: transparent;
+                    color: $border-color;
+                }
+
+            }
+        }
+    }
+}

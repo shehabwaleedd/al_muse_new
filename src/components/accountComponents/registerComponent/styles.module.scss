@@ -1,0 +1,7 @@
+@import "../../../styles/vairables";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-md;
+}

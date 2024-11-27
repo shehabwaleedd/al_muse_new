@@ -1,0 +1,170 @@
+@import "../../styles/vairables";
+
+.container__formSection {
+    @include flex(column, flex-start, flex-start);
+    @include position(fixed, null, null, 0, 0);
+    width: 100%;
+    background: #F2F0EBbb;
+    box-shadow: $box-shadow-lg;
+    border: 1px solid #dadada9b;
+    backdrop-filter: blur(5px);
+    border-top-left-radius: $border-radius-lg;
+    border-top-right-radius: $border-radius-lg;
+    padding: $spacing-sm;
+    z-index: 9;
+
+    @include respond-to(ipad) {
+        max-width: 90vw;
+    }
+
+    @include respond-to(phone) {
+        max-width: 100vw;
+    }
+}
+
+.form {
+    @include flex(column, flex-start, flex-start);
+    width: 100%;
+    padding: $spacing-sm;
+    border-radius: $border-radius-lg;
+    gap: $spacing-sm;
+
+    .button {
+        width: 100%;
+        padding: $spacing-sm;
+        border: 2px solid $title-color;
+        border-radius: $border-radius-lg;
+        font-size: $big-font-size;
+        background-color: $title-color;
+        color: $background-color;
+        cursor: pointer;
+        transition: $animation-primary;
+        margin-top: $spacing-sm;
+    }
+
+    .error {
+        @include flex(row, flex-start, center);
+        width: 100%;
+        padding: $spacing-sm;
+        margin: $spacing-sm 0;
+        border: $border;
+        border-radius: $border-radius-sm;
+        color: $error-color;
+        background-color: #f8d7da;
+    }
+
+    input,
+    select {
+        height: fit-content;
+        width: 100%;
+        padding: $spacing-sm 0rem;
+        border: none;
+        border-bottom: $border;
+        border-radius: 0;
+        outline: none;
+        color: $title-color;
+        background-color: transparent;
+        cursor: pointer;
+        transition: $animation-primary;
+
+        &:last-child {
+            margin-bottom: 1rem;
+            border-bottom: none;
+        }
+
+        &::placeholder {
+            color: $title-color;
+        }
+
+        &::-moz-placeholder {
+            /* Firefox 19+ */
+            color: $title-color;
+            opacity: 1;
+        }
+
+    }
+
+    label {
+        font-size: $big-font-size;
+        color: $title-color;
+        font-family: $title-font;
+        text-transform: capitalize;
+
+        @include respond-to(phone) {
+            font-size: $body-font-size;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        padding: $spacing-lg $spacing-sm;
+        border: none;
+        border-bottom: $border;
+        outline: none;
+        background-color: transparent;
+        color: $title-color;
+        cursor: pointer;
+        transition: $animation-primary;
+
+        &::placeholder {
+            color: $title-color;
+        }
+    }
+}
+
+
+.link {
+    margin-top: 10px;
+    text-align: left;
+    transition: $animation-primary;
+
+    a {
+        color: $text-color;
+        text-decoration: none;
+        transition: $animation-primary;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 1px;
+            background-color: $text-color;
+            transition: width 0.3s;
+        }
+
+        &:hover {
+            transition: $animation-primary;
+
+            &::after {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.loginUpper {
+    @include flex(row, space-between, center);
+    gap: $spacing-lg;
+    width: 100%;
+
+    h2 {
+        text-align: left;
+    }
+}
+
+.group {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+
+    @include respond-to(phone) {
+        flex-direction: column;
+    }
+}
+
+.column {
+    padding-top: $spacing-sm;
+    @include flex(column, flex-start, flex-start);
+    width: 100%;
+    border-bottom: $border;
+}

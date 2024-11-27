@@ -1,0 +1,255 @@
+@import "@/styles/_vairables.scss";
+
+.testimonials {
+    @include flexCenter(column);
+    gap: $spacing-sm;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+
+    @include respond-to(medium-tablet) {
+        padding: $spacing-section-mobile;
+    }
+
+    &_btns {
+        @include flex(row, flex-end, flex-end);
+        gap: $spacing-xs;
+        width: 100%;
+        height: 100%;
+        padding: $spacing-lg;
+
+
+        @include respond-to(medium-tablet) {
+            padding: 0;
+            padding-top: 4vh;
+            gap: $spacing-sm;
+        }
+
+        button {
+            @include flexCenter(row);
+            gap: $spacing-sm;
+            padding: $spacing-sm;
+            border: $border;
+            border-radius: $border-radius;
+            font-size: $normal-font-size;
+            font-family: $title-font;
+            background-color: $title-color;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+
+            svg {
+                fill: $cream-color;
+            }
+
+            &:hover {
+                background-color: $darker-background-three;
+            }
+        }
+    }
+
+    &__slide {
+        @include flexCenter(row);
+        width: 100%;
+        gap: $spacing-sm;
+        cursor: pointer;
+
+        @include respond-to(medium-tablet) {
+            align-items: flex-start;
+        }
+
+        &_container {
+            @include flex(column, flex-start, flex-start);
+            border: 1px solid $title2-color;
+            border-radius: $border-radius;
+            width: fit-content;
+            max-width: 400px;
+            gap: $spacing-xs;
+
+            @include respond-to(small-tablet) {
+                width: 100%;
+            }
+
+            &_upper {
+                width: 100%;
+                gap: $spacing-xs;
+            }
+
+            &_lower {
+                @include flex(column, flex-start, flex-start);
+                width: 100%;
+                padding: $spacing-sm;
+                gap: $spacing-sm;
+            }
+
+            &_middle {
+                @include flex(row, flex-start, center);
+                width: 100%;
+                gap: $spacing-xs;
+                border-bottom: $border;
+
+                button {
+                    color: $title-color;
+                }
+            }
+        }
+
+        p {
+            font-size: $normal-font-size;
+            color: $title-color;
+            font-family: $subtitle-font;
+            transition: $animation-primary;
+            text-align: left;
+        }
+
+        h3 {
+            font-size: $body-font-size;
+            color: $subtitle-color;
+            font-family: $body-font;
+            transition: $animation-primary;
+            text-align: left;
+            line-height: 1.22;
+
+            @include respond-to(medium-tablet) {
+                width: 100%;
+                font-size: $normal-font-size;
+                text-align: left;
+                font-family: $body-font;
+                line-height: 1.1;
+            }
+
+        }
+
+        h4 {
+            font-size: $normal-font-size;
+            color: $subtitle-color;
+            font-family: $subtitle-font;
+            transition: $animation-primary;
+            text-align: left;
+            letter-spacing: 0.05rem;
+        }
+
+        img {
+            width: 100%;
+            height: 30vh;
+            object-fit: cover;
+            border-top-right-radius: $border-radius;
+            border-top-left-radius: $border-radius;
+        }
+
+
+    }
+
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.testimonialsDetailsModal {
+    .testimonialsDetailsContent {
+        @include flexCenter(column);
+        gap: $spacing-sm;
+        padding: $spacing-lg;
+        width: 100%;
+        height: 100%;
+        max-width: 500px;
+        max-height: 500px;
+        min-width: 300px;
+        min-height: 300px;
+
+        h3 {
+            font-size: $big-font-size;
+            color: $title-color;
+            font-family: $title-font;
+            transition: $animation-primary;
+        }
+
+        p {
+            font-size: $normal-font-size;
+            color: $title-color;
+            font-family: $body-font;
+            transition: $animation-primary;
+            text-align: center;
+            line-height: 1.2;
+
+            @include respond-to(small-tablet) {
+                font-size: $small-font-size;
+            }
+        }
+
+        img {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            object-fit: cover;
+
+            @include respond-to(small-tablet) {
+                width: 5rem;
+                height: 5rem;
+            }
+        }
+    }
+
+    .close {
+        @include position(absolute, $spacing-xs, $spacing-sm, null, null);
+        cursor: pointer;
+        padding: $spacing-sm;
+        font-size: $small-font-size;
+        color: $title-color;
+
+        button {
+            transition: $animation-primary;
+        }
+
+        &:hover {
+            button {
+                transition: $animation-primary;
+                color: $accent-color;
+            }
+        }
+    }
+}
+
+.testimonial__upperSection {
+    @include flex(column, space-around, center);
+    padding: 5vh 0;
+    padding-top: 0;
+    width: 100%;
+    height: fit-content;
+
+
+    h3 {
+        font-family: $header-font;
+        font-size: $biggest-font-size;
+        max-width: 75%;
+        text-align: center;
+
+        @include respond-to(desktop) {
+            font-size: $bigger-font-size;
+        }
+
+        @include respond-to(medium-tablet) {
+            font-size: $semi-big-font-size;
+        }
+
+        @include respond-to(phone) {
+            font-size: $big-font-size;
+        }
+    }
+}
+
+.testimonialsSection {
+    padding: $spacing-section;
+    @include flexCenter(column);
+    gap: $spacing-sm;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+    @include respond-to(medium-tablet) {
+        padding: $spacing-section-mobile;
+    }
+}

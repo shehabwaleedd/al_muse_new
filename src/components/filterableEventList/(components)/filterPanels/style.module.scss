@@ -1,0 +1,87 @@
+@import "../../../../styles/vairables";
+
+
+.filters {
+    @include flexCenter(row);
+    width: fit-content;
+    gap: $spacing-lg;
+
+    .search {
+        background-color: #f1f0ee3e;
+        border-radius: $border-radius;
+        box-shadow: 0 4px 30px rgba(96, 77, 58, 0.1);
+        backdrop-filter: blur(5px);
+        padding: $spacing-xxs;
+        input {
+            @include input-base;
+            width: fit-content !important;
+            text-align: center;
+            padding: $spacing-sm;
+
+        }
+    }
+
+    .filter {
+        @include flexCenter(row);
+        flex-wrap: wrap;
+        padding: $spacing-xxs;
+        gap: $spacing-xs;
+        height: fit-content;
+        border-radius: $border-radius;
+        background: #f1f0ee3e;
+        box-shadow: 0 4px 30px rgba(96, 77, 58, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid #c1c1c19b;
+        -webkit-backdrop-filter: blur(5px);
+
+        @include respond-to(medium-tablet){
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    select {
+        gap: 0.5rem;
+        width: fit-content;
+        border-radius: 7.5px;
+        color: $title-color;
+        font-size: $small-font-size;
+        font-family: $body-font;
+        background-color: #f1f0ee;
+        box-shadow: 0 4px 30px rgba(96, 77, 58, 0.1);
+        backdrop-filter: blur(5px);
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        cursor: pointer;
+        padding: 1rem;
+
+        @include respond-to(medium-tablet) {
+            width: 100%;
+            text-align: center;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        option {
+            color: $title-color;
+            background-color: $dimmed-color;
+            font-size: $small-font-size;
+            font-family: $body-font;
+            border: none;
+
+            &:hover {
+                background-color: $dimmed-color;
+            }
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+    }
+}

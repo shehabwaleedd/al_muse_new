@@ -1,0 +1,34 @@
+.roundedButton {
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+
+    p,
+    a {
+        position: relative;
+        z-index: 1;
+        transition: var(--animation-primary);
+        color: var(--title-color);
+        font-size: 0.8rem;
+    }
+
+    &:hover {
+
+        p,
+        a {
+            color: var(--title-color);
+        }
+    }
+}
+
+.circle {
+    width: 100%;
+    height: 150%;
+    position: absolute;
+    border-radius: 50%;
+    top: 100%;
+}

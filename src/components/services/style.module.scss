@@ -1,0 +1,138 @@
+@import "@/styles/_vairables.scss";
+
+.serviceLayers {
+    display: flex;
+    width: 100%;
+    height: 300vh;
+    position: relative;
+
+    &_content {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        @include flexCenter(column);
+        gap: $spacing-xs;
+        padding: $spacing-xs;
+        z-index: 2;
+    }
+}
+
+.information {
+    @include position(fixed, null, $spacing-sm, $spacing-sm, null);
+    width: 30%;
+    height: 50vh;
+    background: rgba(32, 32, 32, 0.75);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(32, 32, 32, 0.3);
+    z-index: 999;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
+
+    @include respond-to(medium-tablet) {
+        width: 50%;
+        height: fit-content;
+        max-height: 30vh;
+        right: 0;
+    }
+
+    button {
+        @include flexCenter(row);
+        justify-self: flex-end;
+        position: relative;
+        bottom: $spacing-xs;
+        gap: $spacing-sm;
+        width: 55%;
+        padding: $spacing-sm;
+        background: $container-color;
+        border-radius: $border-radius-md;
+        border: none;
+        font-size: $small-font-size;
+        z-index: 99;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+            background: $secondary-color;
+        }
+
+        button,
+        svg {
+            padding: 0;
+            color: $title-color;
+            fill: $title-color;
+        }
+
+    }
+
+}
+
+.center {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    border-radius: $border-radius-lg;
+}
+
+.imageContainer {
+    @include position(absolute, 0, null, null, 0);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    will-change: clip-path;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: $border-radius-lg;
+        will-change: clip-path;
+    }
+
+    &.firstImage img {
+        transform: translateY(0%);
+    }
+}
+
+.information_column {
+    @include flexCenter(column);
+    width: 100%;
+}
+
+.information_column_data {
+    @include position(absolute, 0, null, null, 0);
+    @include flexCenter(column);
+    width: 100%;
+    height: 100%;
+    gap: $spacing-lg;
+    color: $title-color;
+    will-change: opacity;
+    opacity: 0;
+    z-index: 9999;
+
+    h2 {
+        font-size: $semi-big-font-size;
+        color: $cream-color;
+        font-family: $header-font;
+        letter-spacing: 0.05rem;
+        text-align: center;
+
+        @include respond-to(medium-tablet) {
+            font-size: $medium-font-size;
+        }
+    }
+
+    p {
+        font-size: $small-font-size;
+        font-weight: $body-font-weight;
+        color: $cream-color;
+        text-align: center;
+        max-width: 75%;
+    }
+
+
+}

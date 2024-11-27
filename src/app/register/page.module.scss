@@ -1,0 +1,201 @@
+@import "../../styles/vairables";
+
+.container {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    background-color: $background-color;
+    gap: $spacing-sm;
+    position: relative;
+    align-items: center;
+    padding: $spacing-sm;
+    width: 100%;
+    min-height: 100vh;
+
+    @include respond-to(ipad) {
+        @include flexCenter(column);
+        padding-top: 9vh;
+    }
+
+    h1 {
+        font-family: $header-font;
+        font-size: $semi-big-font-size;
+        color: $title-color;
+        font-weight: 900;
+        letter-spacing: normal;
+        text-transform: capitalize;
+        font-display: swap;
+        text-align: center;
+    }
+
+    .mainImg {
+        width: 99.5%;
+        height: 98vh;
+        object-fit: cover;
+        border-radius: $spacing-sm;
+        filter: grayscale(0.2);
+
+        @include respond-to(ipad) {
+            display: none;
+        }
+    }
+
+
+
+    &__form {
+        @include flexCenter(column);
+        @include position(absolute, 0, null, null, 0);
+        width: 100%;
+        max-width: 33vw;
+        height: 100%;
+        background-color: $dimmed-color;
+        box-shadow: $box-shadow-lg;
+        backdrop-filter: blur(5px);
+        border: 1px solid #c1c1c19b;
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: $spacing-sm;
+        padding: $spacing-sm;
+        gap: $spacing-lg;
+        z-index: 2;
+        margin: auto;
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: $spacing-sm;
+        }
+
+        @include respond-to(ipad) {
+            max-width: 100%;
+            height: fit-content;
+            top: auto;
+            bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        img {
+            width: 5vw;
+            height: 5vw;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: grayscale(0.2);
+
+            @include respond-to(phone) {
+                width: 10vw;
+                height: 10vw;
+            }
+        }
+
+
+
+        &__group {
+            @include flexCenter(row);
+            width: 100%;
+            gap: $spacing-sm;
+
+            @include respond-to(phone) {
+                flex-direction: column;
+            }
+
+            &_column {
+                padding-top: $spacing-xs;
+                @include flexCenter(column);
+                width: 100%;
+
+            }
+        }
+
+        &__group__passwords {
+            @include flexCenter(row);
+            width: 100%;
+            gap: $spacing-sm;
+
+            @include respond-to(phone) {
+                flex-direction: column;
+            }
+        }
+
+
+
+
+        input,
+        select {
+            height: fit-content;
+            width: 100%;
+            padding: 10px 0rem;
+            border: none;
+            border-bottom: $border;
+            border-radius: 0;
+            outline: none;
+            color: $title-color;
+            background-color: transparent;
+            cursor: pointer;
+            transition: $animation-primary;
+            line-height: 1;
+
+            &::placeholder {
+                color: $title-color;
+            }
+
+            &::-moz-placeholder {
+                /* Firefox 19+ */
+                color: $title-color;
+                opacity: 1;
+            }
+
+            &:hover {
+                transition: $animation-primary;
+                border-bottom: $border;
+            }
+
+            &:focus {
+                border-bottom: $border;
+                transition: $animation-primary;
+            }   
+
+        }
+    }
+
+
+    a {
+        color: $text-color;
+        text-decoration: none;
+        transition: $animation-primary;
+    }
+}
+
+.center {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.grouped {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+}
+
+
+
+.error {
+    @include flex(row, flex-start, center);
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: $border;
+    border-radius: $border-radius;
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.right,
+.left {
+    @include flexCenter(column);
+    position: relative;
+
+}

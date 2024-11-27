@@ -1,0 +1,68 @@
+@import "../../../../styles/vairables";
+
+.upper {
+    @include flexCenter(column);
+    width: 100%;
+    height: 100vh;
+    @include position(sticky, 0, null, null, null);
+    overflow: hidden;
+    background-color: $light-accent-color-two;
+    .abs {
+        @include position(absolute, null, null, 5vh, null);
+        width: 100%;
+
+        @include respond-to(large-screen) {
+            bottom: 3vh;
+        }
+
+        @media (max-width: 755px) {
+            bottom: 5vh;
+        }
+        .content {
+            @include flex(column, flex-start, center);
+            width: 100%;
+            text-align: center;
+            line-height: 0.88;
+            height: 30vh; // Adjust to show only two words at a time
+            overflow: hidden;   
+
+            @include respond-to(large-screen) {
+                height: 25vh;
+            }
+
+            @include respond-to(medium-tablet) {
+                height: 18vh;
+            }
+        
+            span {
+                font-family: $header-font;
+                font-size: $navigation-font-size;
+                color: $cream-color;
+                flex-shrink: 0; 
+                height: 33.33%;
+
+                @include respond-to(large-screen) {
+                    font-size: 4rem;
+                }
+        
+                @include respond-to(desktop) {
+                    font-size: 10rem;
+                }
+
+            }
+        }
+    }
+
+    .mainImg {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        transition: transform 1s ease, border-radius 1s ease; // Smooth transition for image animation
+    }
+}
+
+.wrapper {
+    height: 200vh; 
+    position: relative;
+    z-index: 9;
+}

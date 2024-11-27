@@ -1,0 +1,34 @@
+@import "../../../../styles/vairables";
+
+.eventsPageTitles {
+    @include flexCenter(column);
+    width: 100%;
+    overflow: hidden;
+
+    h2 {
+        margin-top: 0;
+        font-size: 3rem;
+        font-family: $header-font;
+        letter-spacing: normal;
+        color: $title-color;
+        text-align: center;
+        text-transform: none;
+        @media (max-width: 1256px) {
+            font-size: 5vh;
+        }
+
+        @media (max-width: 520px) {
+            font-size: 5vh;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 410px) {
+            font-size: 4vh;
+        }
+    }
+}
+.services_upper_titles_accent {
+    span {
+        color: $accent-color;
+    }
+}

@@ -1,0 +1,47 @@
+@import "../../styles/vairables";
+
+
+.eventsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: $spacing-sm;
+    align-items: start;
+    max-width: $container-max-width-xxxl;
+
+    @include respond-to(tv) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+
+
+
+    @include respond-to(ipad) {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: $container-max-width-xxl;
+    }
+
+    @include respond-to(medium-tablet) {
+        grid-template-columns: repeat(1, 1fr);
+        max-width: $container-max-width-xl;
+    }
+
+    
+}
+
+.noEvents {
+    @include flexCenter(column);
+    gap: $spacing-sm;
+    width: 100%;
+    text-align: center;
+    padding-top: 10vh;
+    h2 {
+        font-size: $semi-big-font-size
+    }
+
+    a {
+        @include mainButton($title-color, $cream-color);
+        width: fit-content;
+        padding: $spacing-sm $spacing-md;
+    }
+}

@@ -1,0 +1,391 @@
+@import "../../../styles/vairables";
+
+.event {
+    @include flexCenter(column);
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+    background-color: $dimmed-color;
+
+    &__upper {
+        width: 100%;
+        height: 65vh;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-bottom-right-radius: 1.5rem;
+            border-bottom-left-radius: 1.5rem;
+            object-fit: cover;
+            object-position: center center;
+            position: relative;
+            filter: grayscale(50%);
+
+            @media (max-width: 467px) {
+                border-bottom-right-radius: none;
+                border-bottom-left-radius: none;
+            }
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            /* Adjust this value to control how much of the bottom is affected */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 45%, $dimmed-color 100%);
+            border-radius: 1rem;
+            z-index: 1;
+        }
+    }
+
+    .eventDetails,
+    &Content,
+    .locationSection,
+    .participants {
+
+        @include flex(column, center, flex-start);
+        width: 100%;
+        max-width: 70vw;
+        height: fit-content;
+        background-color: $dimmed-color;
+        box-shadow: $box-shadow-lg;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: $border-radius-xxl;
+        padding: $spacing-md $spacing-lg;
+        gap: $spacing-lg;
+        z-index: 2;
+        position: relative;
+        top: -5rem;
+
+        @include respond-to(ipad) {
+            max-width: 90vw;
+        }
+
+        @include respond-to(small-tablet) {
+            max-width: 100vw;
+            padding: $spacing-sm $spacing-md;
+        }
+
+        h1 {
+            font-family: $header-font;
+            font-size: $big-font-size;
+            color: $title-color;
+            padding-bottom: 0;
+            font-display: swap;
+            text-transform: capitalize;
+            letter-spacing: 0.05rem;
+
+            @include respond-to(medium-tablet) {
+                font-size: $medium-font-size;
+            }
+        }
+
+        h2 {
+            font-family: $header-font;
+            font-size: $semi-big-font-size;
+            color: $title-color;
+        }
+
+        .sectionHeader {
+            font-family: $header-font;
+            font-size: $semi-big-font-size;
+            color: $title-color;
+        }
+    }
+}
+
+.eventDetails {
+    .container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+
+        @include respond-to(medium-tablet) {
+            @include flex(column, flex-start, flex-start);
+        }
+
+        .details {
+            @include flex(column, center, center);
+            gap: $spacing-sm;
+            border-right: $border;
+
+            @include respond-to(medium-tablet) {
+                border-right: none;
+                padding-bottom: $spacing-sm;
+                border-bottom: $border;
+                width: 100%;
+            }
+
+            .detailsRow {
+                display: flex;
+                width: 100%;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 1rem;
+
+
+                svg {
+                    width: 3rem;
+                    height: 3rem;
+                    fill: $title-color;
+                    color: $title-color;
+                    border: $border;
+                    border-radius: $border-radius;
+                    padding: 0.7rem;
+                    font-size: 2rem;
+
+                    @include respond-to(medium-tablet) {
+                        width: 3rem;
+                        height: 3rem;
+                        padding: 0.5rem;
+                        font-size: 1.5rem;
+                    }
+
+                }
+
+                .detailsColumn {
+                    @include flex(column, center, flex-start);
+
+                    p {
+                        font-family: $body-font;
+                        font-size: $small-font-size;
+                        color: $subtitle-color;
+                        font-display: swap;
+                        text-transform: capitalize;
+
+                        @media (max-width: 777px) {
+                            font-size: 0.8rem;
+                        }
+                    }
+
+                    h3 {
+                        font-family: $body-font;
+                        font-size: $normal-font-size;
+                        color: $title-color;
+                        font-display: swap;
+                        text-transform: capitalize;
+                        letter-spacing: 0.05rem;
+
+                        @include respond-to(medium-tablet) {
+                            font-size: $normal-font-size;
+                        }
+                    }
+                }
+            }
+        }
+
+        .right {
+            @include flex(column, flex-end, center);
+            gap: 1rem;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+
+            @include respond-to(small-tablet) {
+                padding: 0;
+            }
+
+            .content,
+            .pastEvent,
+            .upcomingEvent {
+                @include flexCenter(column);
+                gap: $spacing-md;
+                width: 100%;
+                height: 100%;
+
+                @include respond-to(small-tablet) {
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                }
+
+
+
+                p {
+                    font-family: $subtitle-font;
+                    font-size: $small-font-size;
+                    color: $subtitle-color;
+                    font-display: swap;
+                    text-transform: capitalize;
+                    text-align: center;
+
+                    @include respond-to(small-tablet) {
+                        text-align: left;
+                    }
+                }
+
+                .actionArea {
+                    button {
+                        @include mainButton($title-color, $opposite-color);
+                        padding: $spacing-xs $spacing-sm;
+
+                        a {
+                            color: $opposite-color;
+                            text-decoration: none;
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+    }
+
+    .loginBtn {
+        padding: 0.5rem 1rem;
+        border: $border;
+        border-radius: $border-radius;
+    }
+}
+
+.participants {
+    @include flex(column, flex-start, flex-start);
+    width: 100%;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+
+    &_top {
+        @include flex(row, space-between, center);
+        width: 100%;
+        gap: 0.4rem;
+    }
+
+    img {
+        width: $spacing-lg;
+        height: $spacing-lg;
+        border-radius: $border-radius-full;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    &Container {
+        @include flex(row, space-between, center);
+        width: 100%;
+        gap: 0.4rem;
+
+        @include respond-to(small-tablet) {
+            @include flex(column, flex-start, flex-start);
+        }
+
+        h2 {
+            font-family: $title-font;
+            font-size: $normal-font-size;
+            color: $title-color;
+            font-display: swap;
+            text-transform: capitalize;
+            text-align: center;
+
+        }
+
+        button {
+            @include mainButton($title-color, $opposite-color);
+            width: fit-content;
+            padding: $spacing-sm !important;
+
+            @include respond-to(small-tablet) {
+                padding: 0.5rem;
+            }
+        }
+    }
+
+    &Grid {
+        @include flex(row, space-between, center);
+        width: 100%;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+    }
+
+}
+
+.loading {
+    img {
+        width: 100%;
+        height: 60vh;
+        border-bottom-right-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+        object-fit: cover;
+        object-position: center center;
+        position: relative;
+        filter: grayscale(50%);
+
+        @include respond-to(small-tablet) {
+            border-bottom-right-radius: none;
+            border-bottom-left-radius: none;
+        }
+    }
+}
+
+.creatorInfo {
+    @include flex(row, flex-start, center);
+    gap: 1rem;
+    width: 100%;
+
+    @include respond-to(small-tablet) {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .creatorName {
+        @include flex(row, flex-start, center);
+        gap: 0.25rem;
+        font-family: $body-font !important;
+        font-weight: $body-font-light !important;
+        font-size: $small-font-size !important;
+        color: $subtitle-color;
+        font-display: swap;
+        text-transform: capitalize;
+        letter-spacing: 0.05rem;
+        text-align: center;
+
+        @include respond-to(medium-tablet) {
+            font-size: $medium-font-size;
+        }
+
+    }
+
+    a {
+        font-weight: $body-font-light;
+        color: $subtitle-color;
+        text-decoration: none;
+    }
+
+}
+
+.titleContainer {
+    @include flex(column, flex-start, flex-start);
+    gap: 0.25rem;
+}
+
+.statusInfo {
+    @include flexCenter(column);
+    gap: $spacing-xs;
+
+    h3 {
+        font-family: $body-font;
+        font-size: $big-font-size;
+        font-weight: $medium-font-weight;
+        color: $title-color;
+        line-height: 1.3;
+        font-display: swap;
+        text-transform: capitalize;
+        text-align: center;
+
+        @include respond-to(medium-tablet) {
+            font-size: $medium-font-size;
+        }
+
+        @include respond-to(small-tablet) {
+            text-align: left;
+        }
+    }
+}

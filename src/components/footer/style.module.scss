@@ -1,0 +1,200 @@
+@import "../../styles/_vairables.scss";
+
+.footer {
+    color: $container-color;
+    background-color: $darker-background-three;
+    @include flexCenter(column);
+    @include position(relative, 0, 0, 0, 0);
+    height: fit-content;
+    width: 100%;
+    z-index: 0;
+}
+
+.upper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    padding: $spacing-sm;
+    padding-bottom: $spacing-lg;
+
+    h3 {
+        font-family: $header-font;
+        font-size: $bigger-font-size;
+        color: $title-color;
+
+        @include respond-to(medium-tablet) {
+            font-size: $normal-font-size;
+        }
+    }
+
+    @include respond-to(medium-tablet) {
+        grid-template-columns: 1fr 1fr;
+        padding-bottom: $spacing-lg;
+    }
+}
+
+.nav,
+.subscripe {
+    @include flex(column, flex-start, flex-start);
+    gap: $spacing-sm;
+
+    span {
+        font-size: $big-font-size;
+        color: $title-color;
+        font-weight: $bold-font-weight;
+        font-family: $kiona-font;
+        transition: $animation-primary;
+
+        @include respond-to(medium-tablet) {
+            font-size: $medium-font-size;
+        }
+
+
+        &:hover {
+            transition: $animation-primary;
+            color: #32816e;
+        }
+    }
+
+    button {
+        @include flex(row, flex-start, center);
+        gap: $spacing-xs;
+        width: 90%;
+        transition: $animation-primary;
+        h5 {
+            font-size: $normal-font-size;
+            font-family: $kiona-font;
+        }
+
+        @include respond-to(medium-tablet) {
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        &:hover {
+            h4 {
+                transition: $animation-primary;
+                color: #32816e;
+            }
+
+            svg {
+                transition: $animation-primary;
+                rotate: (45deg);
+            }
+        }
+    }
+
+    h4 {
+        color: $title-color;
+        font-size: $medium-font-size;
+        max-width: 60%;
+        transition: $animation-primary;
+
+        @include respond-to(medium-tablet) {
+            max-width: 100%;
+        }
+    }
+
+    svg {
+        background-color: $title-color;
+        border-radius: $border-radius;
+        padding: $spacing-sm $spacing-xs;
+        color: $dimmed-color;
+        font-size: 3rem; 
+        transition: $animation-primary;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+    }
+}
+
+.subscripe {
+    @include respond-to(medium-tablet) {
+        align-items: flex-start;
+    }
+}
+
+.lower {
+    @include flex(row, space-between, center);
+    width: 100%;
+
+    @include respond-to(medium-tablet) {
+        flex-direction: column-reverse;
+        border-top: none;
+
+    }
+
+    &_left,
+    ul {
+        @include flex(row, null, flex-end);
+        width: fit-content;
+        gap: $spacing-sm;
+        padding: $spacing-sm;
+
+        strong {
+            color: $title-color;
+            font-size: $body-font-size;
+            font-family: $kiona-font;
+        }
+
+        @include respond-to(medium-tablet) {
+            width: 100%;
+            border-top: $border;
+        }
+    }
+
+    ul {
+        @include respond-to(medium-tablet) {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+
+    &_left {
+        @include respond-to(medium-tablet) {
+            width: 100%;
+        }
+    }
+
+    &_right {
+
+
+        @include respond-to(ipad) {
+            display: none;
+        }
+    }
+
+    a {
+        color: $title-color;
+        transition: $animation-primary;
+
+        &:hover {
+            transition: $animation-primary;
+            color: #32816e;
+        }
+    }
+}
+
+.link {
+
+    color: $title-color;
+    position: relative;
+    right: -$spacing-xxl;
+    font-family: $kiona-font;
+
+    a {
+        color: $title-color;
+    }
+
+}
+
+.span {
+    font-size: $small-font-size;
+}
+
+.link_mobileOnly {
+    display: block;
+    
+    @media (min-width:1024px) {
+        display: none;
+    }
+}

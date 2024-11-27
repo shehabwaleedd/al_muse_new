@@ -1,0 +1,107 @@
+@import "@/styles/_vairables.scss";
+
+.nav_logo {
+    @include position(fixed, $spacing-sm, null, null, null);
+    z-index: 99999;
+    height: fit-content;
+    max-height: 10vh;
+
+    img {
+        position: relative;
+        top: -$spacing-lg;
+        height: 17vh;
+        object-fit: cover;
+    }
+}
+
+
+
+.nav_right {
+    @include position(fixed, $spacing-sm, $spacing-sm, null, null);
+    z-index: 99999;
+
+    &_container {
+        padding: 0.1rem;
+        display: flex;
+        align-items: center;
+        background-color: $dimmed-color;
+        border: $border;
+        border-radius: $border-radius;
+        position: relative;
+
+        @include respond-to(laptop) {
+            position: absolute;
+            flex-direction: column;
+            align-items: stretch;
+            right: $spacing-sm;
+            top: $spacing-sm;
+        }
+
+        .content {
+            @include flex(row, space-between, center);
+            width: 100%;
+            position: relative;
+            border-radius: 7.5px;
+
+            .hamburger {
+                padding: $spacing-sm $spacing-md;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 7.5px;
+                cursor: pointer;
+
+                @include respond-to(laptop) {
+                    padding: $spacing-sm;
+                }
+
+                svg {
+                    font-size: $small-font-size;
+                }
+            }
+        }
+
+    }
+
+    button {
+        border-radius: 7.5px;
+        padding: $spacing-md;
+        font-size: $small-font-size;
+        @include flexCenter(row);
+        transition: $animation-primary;
+        position: relative;
+        z-index: 999;
+        background-color: $dimmed-color;
+        color: $title-color;
+
+        @include respond-to(laptop) {
+            padding: $spacing-sm;
+        }
+
+        &:hover {
+            transition: $animation-primary;
+            background-color: #A9d4a4;
+        }
+    }
+
+}
+
+.navButton {
+    transition: $animation-primary;
+    padding: $spacing-md $spacing-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    min-width: fit-content;
+    min-height: fit-content;
+
+    @include respond-to(laptop) {
+        padding: $spacing-sm $spacing-md;
+    }
+
+    &:hover {
+        transition: $animation-primary;
+        background-color: #A9d4a4 !important;
+    }
+}

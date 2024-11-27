@@ -1,0 +1,33 @@
+@import "../../styles/vairables";
+
+// style.module.scss
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.contentWrapper {
+    width: 100%;
+    height: 100%;
+    @include flexCenter(row);
+}
+
+.top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.underneath {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 1;
+}

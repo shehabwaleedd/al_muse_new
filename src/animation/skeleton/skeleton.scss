@@ -1,0 +1,87 @@
+@import "../../styles/vairables";
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-sm;
+  width: 100%;
+  height: 100%;
+  gap: $spacing-lg;
+  user-select: none;
+  max-width: 1500px;
+
+}
+
+
+.skeleton {
+  border-radius: 0.25rem;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeleton-card-brand {
+  width: 20%;
+  height: 0.7rem;
+  margin: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-card {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-lg;
+  padding: $spacing-xs;
+  gap: $spacing-xs;
+  max-width: 500px;
+  cursor: pointer;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+}
+
+.skeleton-card-text {
+  width: 100%;
+}
+
+.skeleton-card-img {
+  width: 100%;
+  height: 20rem;
+  border-radius: $spacing-md;
+}
+
+.skeleton-card-price {
+  width: 10%;
+  height: 0.7rem;
+  margin: $spacing-xs;
+}
+
+.skeleton-card-rating {
+  width: 20%;
+  height: 0.7rem;
+  margin: $spacing-xs;
+}
+
+.skeleton-card-title {
+  width: 70%;
+  height: 0.7rem;
+  margin: $spacing-xs;
+}
+
+.skeleton-card-description {
+  width: 90%;
+  height: 2rem;
+  margin: $spacing-xs;
+  margin-bottom: $spacing-xs;
+}
+
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}

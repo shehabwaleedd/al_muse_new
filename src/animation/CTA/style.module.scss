@@ -1,0 +1,30 @@
+@import '../../styles/vairables';
+
+.ctaButton {
+    position: relative;
+    @include flex(row, center, center);
+    border: $border;
+    border-radius: $border-radius;
+    outline: none;
+    gap: 1rem;
+    padding: 1.5rem;
+    cursor: pointer;
+
+    svg,
+    button {
+        position: relative;
+        z-index: 1;
+        transition: $animation-primary;
+        // color: $title-color;
+        font-size: $small-font-size;
+    }
+
+    svg {
+        margin-top: 0.2rem;
+    }
+
+    &:hover {
+        border: $border;
+    }
+}
+

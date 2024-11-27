@@ -1,0 +1,44 @@
+@import "../../../../styles/vairables";
+
+.join {
+    @include flexCenter(column);
+    width: 100%;
+    height: 70vh;
+    background-color: $darker-background-three;
+    gap: 10vh;
+    position: relative;
+    z-index: 1;
+
+    h3 {
+        font-family: $header-font;
+        font-size: 5.5rem;
+        color: $text-color;
+        margin: 0;
+        text-align: center;
+        max-width: 45%;
+        text-transform: lowercase;
+        line-height: 80.833%;
+
+        @include respond-to(ipad) {
+            max-width: 75%;
+            font-size: $biggest-font-size;
+        }
+    }
+
+    button {
+        @include flexCenter(row);
+        width: fit-content;
+        height: fit-content;
+        padding: $spacing-xl $spacing-lg;
+        gap: $spacing-xs;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        border-radius: $border-radius;
+        font-size: $small-font-size;
+        background-color: $title-color;
+        color: $cream-color;
+
+        svg {
+            color: $cream-color;
+        }
+    }
+}

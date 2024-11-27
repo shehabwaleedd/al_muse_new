@@ -1,0 +1,36 @@
+@import "../../styles/vairables";
+
+.communityEvents {
+    @include flexCenter(column);
+    padding: $spacing-section;
+    width: 100%;
+    gap: $spacing-lg;
+    user-select: none;
+    min-height: 100vh;
+    z-index: 990;
+    position: relative;
+
+    @include respond-to(medium-tablet){
+        padding: $spacing-section-mobile;
+    }
+
+    .bottom {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        width: 100%;
+        gap: $spacing-sm;
+        align-items: start;
+    }
+
+    .userProfile {
+        @include flexCenter(column);
+        gap: $spacing-sm;
+
+        img {
+            border-radius: $border-radius-lg;
+            height: 25vh;
+            width: 25vw;
+            object-fit: contain;
+        }
+    }
+}

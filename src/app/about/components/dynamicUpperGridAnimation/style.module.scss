@@ -1,0 +1,38 @@
+.visionUpper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 2rem;
+    width: 100%;
+    height: 100vh;
+    place-items: start;
+    place-content: center;
+    background-color: var(--container-color);
+    padding: 2rem;
+
+    @media (max-width: 777px) {
+        grid-template-columns: 1fr;
+    }
+
+    h3 {
+        font-family: var(--header-font);
+        font-size: 3rem;
+        letter-spacing: normal;
+        text-transform: capitalize;
+        font-display: swap;
+        margin-bottom: 2rem;
+
+        @media (max-width: 777px) {
+            font-size: 2rem;
+        }
+    }
+
+    p {
+        font-family: var(--header-font);
+        font-size: 3.5rem;
+
+        @media (max-width: 777px) {
+            font-size: 2.5rem;
+        }
+
+    }
+}

@@ -1,0 +1,68 @@
+@import "../../../styles/vairables";
+
+.forgotPassword {
+
+    @include flex(column, flex-start, flex-start);
+    @include position(fixed, 0, 0, null, null);
+    height: 100%;
+    width: 100%;
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, 0.01);
+    padding: $spacing-lg;
+    margin: 0 auto;
+
+    .form {
+        @include flexCenter(column);
+        @include position(absolute, 0.25rem, 0.25rem, null, null);
+        height: 99%;
+        width: 100%;
+        max-width: 30vw;
+        padding: $spacing-sm;
+        background: #F2F0EBbb;
+        box-shadow: $box-shadow-lg;
+        border: $border;
+        backdrop-filter: blur(5px);
+        border-radius: $border-radius;
+        gap: $spacing-md;
+        z-index: 9999;
+        opacity: 1;
+    
+        input,
+        select {
+            @include input-base;
+    
+        }
+    
+        label {
+            font-size: $body-font-size;
+            color: $title-color;
+            font-family: $title-font;
+            text-transform: capitalize;
+    
+            @include respond-to(phone) {
+                font-size: $normal-font-size;
+            }
+        }
+    
+        textarea {
+            @include input-base;
+        }
+    }
+
+    h2 {
+        font-family: $title-font;
+        font-size: $semi-big-font-size;
+        color: $title-color;
+        font-display: swap;
+        text-transform: capitalize;
+    }
+
+    input {
+        @include input-base;
+    }
+
+    button {
+        @include mainButton($accent-color, $title-color);
+        gap: $spacing-sm !important;
+    }
+}

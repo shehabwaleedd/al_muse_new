@@ -1,0 +1,19 @@
+@import "../../styles/vairables";
+
+.borderBox {
+    @include flexCenter(row);
+    height: 0.5px;
+    position: relative;
+    padding: 0 $spacing-sm;
+    z-index: 999;
+}
+
+.diamond {
+    width: 24px;
+    height: 24px;
+}
+
+.plusSign {
+    position: absolute;
+    top: -0.75rem;
+}

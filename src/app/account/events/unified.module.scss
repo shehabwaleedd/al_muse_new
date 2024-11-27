@@ -1,0 +1,101 @@
+@import '../../../styles/vairables';
+
+
+.datePickerContainer {
+    position: relative;
+    width: 100%;
+}
+
+.dateInput {
+    @include input-base;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    padding: $spacing-sm $spacing-md;
+    
+    &.error {
+        border-color: $error-color;
+    }
+
+    .dateValue {
+        color: $title-color;
+    }
+
+    .calendarIcon {
+        font-size: $normal-font-size;
+    }
+}
+
+.calendarDropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 10;
+    background-color: $white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-lg;
+    padding: $spacing-xs;
+    
+    :global {
+        .rdp {
+            margin: 0;
+            --rdp-cell-size: 40px;
+            --rdp-accent-color: #{$accent-color};
+            --rdp-background-color: #{$accent-color};
+        }
+
+        .rdp-months {
+            padding: $spacing-xs;
+        }
+
+        .rdp-month {
+            background-color: $white;
+        }
+
+        .rdp-day {
+            width: 40px;
+            height: 40px;
+            font-size: $small-font-size;
+            color: $title-color;
+            
+            &_selected {
+                background-color: $accent-color !important;
+                color: $white;
+                font-weight: $bold-font-weight;
+            }
+
+            &_today {
+                font-weight: $bold-font-weight;
+                color: $accent-color;
+            }
+
+            &:hover:not(.rdp-day_selected) {
+                background-color: $dimmed-color !important;
+            }
+        }
+
+        .rdp-head_cell {
+            font-size: $small-font-size;
+            font-weight: $semi-bold-font-weight;
+            color: $subtitle-color;
+            text-transform: uppercase;
+        }
+
+        .rdp-nav_button {
+            color: $title-color;
+            
+            &:hover {
+                background-color: $dimmed-color;
+            }
+        }
+
+        .rdp-caption_label {
+            font-size: $normal-font-size;
+            font-weight: $semi-bold-font-weight;
+            color: $title-color;
+        }
+    }
+}

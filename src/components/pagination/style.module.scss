@@ -1,0 +1,58 @@
+@import '../../styles/vairables';
+
+.pagination {
+    @include flex(row, center, center);
+    gap: $spacing-md;
+    width: 100%;
+    margin-top: $spacing-lg;
+
+    &__button {
+        padding: $spacing-xs $spacing-sm;
+        border: $border;
+        border-radius: $border-radius;
+        background: transparent;
+        cursor: pointer;
+        transition: $animation-primary;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+            background: $primary-color;
+            color: $background-color;
+        }
+    }
+
+    &__numbers {
+        @include flex(row, center, center);
+        gap: $spacing-xs;
+    }
+
+    &__number {
+        padding: $spacing-xs;
+        min-width: 2.5rem;
+        height: 2.5rem;
+        border: $border;
+        border-radius: $border-radius;
+        background: transparent;
+        cursor: pointer;
+        transition: $animation-primary;
+        font-size: $small-font-size;
+
+        &_active {
+            background: $title-color;
+            color: $background-color;
+        }
+
+        &:disabled {
+            border: none;
+            cursor: default;
+        }
+
+        &:hover:not(:disabled):not(.pagination__number_active) {
+            background: $gray;
+        }
+    }
+}

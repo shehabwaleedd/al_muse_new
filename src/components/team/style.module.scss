@@ -1,0 +1,149 @@
+@import "../../styles/vairables";
+
+.teamFirst {
+    @include flexCenter(column);
+    height: fit-content;
+    width: fit-content;
+    @include position(relative, 0, $spacing-sm, null, null);
+    padding: $spacing-sm;
+    background: #f7eee1de;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dadada9b;
+    backdrop-filter: blur(5px);
+    border-radius: $border-radius-lg;
+    gap: $spacing-sm;
+    overflow-y: auto;
+
+
+    @include respond-to(small-tablet) {
+        max-width: 99vw;
+        margin: 0 auto;
+    }
+
+    &__card {
+        @include flex(columm, flex-start, flex-start);
+        gap: $spacing-sm;
+        padding: $spacing-sm;
+        width: 100%;
+        border-bottom: var(--border);
+        height: 100%;
+        position: relative;
+        z-index: 9999;
+
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &__content {
+            @include flex(row, flex-start, center);
+            gap: $spacing-sm;
+            width: fit-content;
+            height: 100%;
+
+        }
+
+        h2 {
+            font-size: $small-font-size;
+            font-family: $header-font;
+            color: $title-color;
+        }
+
+        p {
+            font-size: $small-font-size;
+            font-family: $body-font;
+            color: $text-color;
+        }
+
+        img {
+            height: 10vh;
+            width: 6vw;
+            object-fit: cover;
+            border-radius: $border-radius;
+        }
+    }
+
+}
+
+.teamSecond {
+    @include flexCenter(column);
+    height: 98vh;
+    width: 40vw;
+    @include position(sticky, 0, 24vw, null, null);
+    padding: $spacing-sm;
+    background: #f7eee1de;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dadada9b;
+    backdrop-filter: blur(5px);
+    border-radius: $border-radius-lg;
+}
+
+.column {
+    @include flex(column, null, flex-start);
+    padding: $spacing-sm $spacing-xs;
+    gap: $spacing-xxs;
+}
+
+.secondRight {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 0.1rem;
+    @include flexCenter(column);
+
+    img {
+        height: 66vh;
+        width: 100%;
+        border-radius: 0.875rem;
+        border-radius: $border-radius-lg;
+        object-fit: cover;
+    }
+
+    h2 {
+        font-size: $semi-big-font-size;
+        font-family: $header-font;
+        color: $title-color;
+    }
+
+    p {
+        font-size: $small-font-size;
+        font-family: $body-font;
+        color: $text-color;
+        text-transform: uppercase;
+    }
+
+    svg {
+        background-color: transparent;
+        border: $border;
+        border-radius: $border-radius-md;
+        font-size: $semi-big-font-size;
+        padding: 0.35rem;
+        transition: $animation-primary;
+        color: $text-color;
+    }
+}
+
+.lower {
+    @include flexCenter(column);
+    text-align: center;
+    padding-top: 6vh;
+    padding: $spacing-sm;
+    gap: $spacing-sm;
+}
+
+.main {
+    @include flex(row, row-reverse, flex-start);
+    padding: $spacing-xs;
+    min-height: 100%;
+
+
+}
+
+.overlayWrapper {
+    @include position(fixed, 0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.06);
+    z-index: 99999;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}

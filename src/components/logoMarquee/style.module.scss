@@ -1,0 +1,26 @@
+@import '../../styles/vairables';
+
+.logo_marquee {
+    @include flexCenter(row);
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+    gap: $spacing-sm;
+    max-width: 80%;
+    margin: 0 auto;
+    img {
+
+        object-fit: contain;
+        width: 5rem;
+        height: 5rem;
+    }
+}
+
+.logo_marquee_content {
+    display: flex;
+    background-blend-mode: difference;
+    gap: $spacing-lg;
+    width: 100%;
+    height: fit-content;
+    margin: 0 $spacing-sm;
+}

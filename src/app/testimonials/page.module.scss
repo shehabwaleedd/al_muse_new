@@ -1,0 +1,101 @@
+@import "../../styles/vairables";
+
+.testimonials {
+    @include flexCenter(column);
+    width: 100%;
+    gap: 2rem;
+    min-height: 90vh;
+
+    img {
+        width: 100%;
+        height: 70lvh;
+        object-fit: cover;
+    }
+
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 70vw;
+        height: fit-content;
+        background-color: $dimmed-color;
+        box-shadow: $box-shadow-lg;
+        backdrop-filter: blur(5px);
+        border: $border;
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: $border-radius;
+        padding: 2rem;
+        gap: 1rem;
+        z-index: 2;
+        position: relative;
+        top: -3rem;
+
+        img {
+            width: 100%;
+            max-width: 30rem;
+            margin-bottom: 2rem;
+            object-fit: contain;
+        }
+
+        @media (max-width: 1368px) {
+            max-width: 99vw;
+
+        }
+
+
+        &__group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            gap: 1rem;
+
+            @media (max-width: 456px) {
+                @include flex(column, flex-start, center);
+            }
+
+            &_column {
+                padding-top: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        input,
+        select, textarea {
+            @include input-base;
+        }
+
+        textarea {
+            height: 20vh;
+        }
+
+        span {
+            cursor: pointer;
+        }
+
+        label {
+            font-size: $normal-font-size;
+            color: $title-color;
+            text-transform: capitalize;
+        }
+
+        .register__btn {
+            @include mainButton($title-color, $cream-color);
+        }
+    }
+
+    .error {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        color: #721c24;
+        background-color: #f8d7da;
+    }
+}

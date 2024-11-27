@@ -1,0 +1,95 @@
+@import "../../../../styles/vairables";
+
+.overlay {
+    @include flex(row, center, center);
+    @include position(fixed, 50%, null, null,50%);
+    width: 100%;
+    max-width: fit-content;
+    height: fit-content;
+    transform: translate(-50%, -50%);
+    background-color: #f9f5ec0a;
+    box-shadow: $box-shadow-md;
+    border-radius: $border-radius;
+    backdrop-filter: blur(5px);
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    z-index: 100;
+    transition: $animation-primary;
+
+    .modal {
+        @include flexCenter(column);
+        padding: $spacing-lg;
+        gap: $spacing-md;
+        width: 100%;
+        min-width: 400px;
+
+        .closeButton {
+            button {
+                @include position(absolute, $spacing-md, $spacing-md, null, null);
+                color: $title-color;
+                transition: $animation-primary;
+                font-size: $normal-font-size;
+                cursor: pointer;
+
+                &:hover {
+                    transition: $animation-primary;
+                    color: darken($delete-color, 10%);
+                }
+            }
+        }
+
+        &__top {
+            @include flexCenter(column);
+            gap: $spacing-md;
+            width: 100%;
+
+            img {
+                width: 5rem;
+                height: 5rem;
+                object-fit: cover;
+                border-radius: 50%;
+
+            }
+        }
+
+        &__bottom {
+            @include flex(column, flex-start, center);
+            width: 100%;
+
+            p {
+                @include flex(row, space-between, center);
+                gap: $spacing-xs;
+                font-size: $normal-font-size;
+                color: $title-color;
+                font-family: $subtitle-font;
+                border-bottom: $border;
+                padding: $spacing-xs;
+                width: 100%;
+                text-align: center;
+                font-weight: 200;
+                text-transform: capitalize;
+            }
+        }
+
+        &__lower {
+            @include flex(column, center, flex-start);
+            width: 100%;
+
+            .convertButton {
+                @include mainButton($title-color, $cream-color);
+                padding: $spacing-sm;
+            }
+            .deleteButton {
+                @include mainButton($delete-color, $title-color);
+                padding: $spacing-sm;
+
+            }
+
+            button {
+                
+            }
+        }
+    }
+
+}

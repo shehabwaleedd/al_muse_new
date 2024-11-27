@@ -1,0 +1,187 @@
+@import '../../styles/vairables';
+
+.tellUsYourStory {
+    @include flex(column, flex-start, flex-start);
+    @include position(fixed, 0, 0, null, null);
+    height: 100%;
+    width: 100%;
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, 0.01);
+    padding: $spacing-lg;
+    margin: 0 auto;
+
+    h2 {
+        font-size: $bigger-font-size;
+        color: $title-color;
+        font-family: $title-font;
+        text-transform: capitalize;
+        text-align: left;
+        padding-left: $spacing-sm;
+
+        @include respond-to(small-tablet) {
+            font-size: $semi-big-font-size;
+        }
+    }
+
+
+    &__form {
+        @include flexCenter(column);
+        padding: $spacing-lg;
+        width: 100%;
+        padding-top: 0;
+
+        @include respond-to(desktop) {
+            max-width: 99vw;
+            padding: $spacing-sm;
+        }
+
+
+        &__group {
+            display: flex;
+            width: 100%;
+            gap: 1rem;
+
+            @include respond-to(phone) {
+                flex-direction: column;
+            }
+
+            &_column {
+                padding-top: $spacing-xs;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        &__group__passwords {
+            display: flex;
+            width: 100%;
+            gap: $spacing-sm;
+
+            @include respond-to(phone) {
+                flex-direction: column;
+            }
+        }
+
+
+
+
+        input,
+        select {
+            height: 5vh;
+            width: 100%;
+            padding: $spacing-xs 0rem;
+            border: none;
+            border-bottom: $border;
+            border-radius: 0;
+            outline: none;
+            color: $title-color;
+            background-color: transparent;
+            cursor: pointer;
+            transition: $animation-primary;
+            &::placeholder {
+                color: $title-color;
+            }
+
+            &::-moz-placeholder {
+                /* Firefox 19+ */
+                color: $title-color;
+                opacity: 1;
+            }
+
+            &:hover {
+                transition: $animation-primary;
+                border-bottom: $border;
+            }
+
+            &:focus {
+                border-bottom: $border;
+                transition: $animation-primary;
+            }
+        }
+
+        label {
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 2rem 0;
+            height: 13vh;
+            border: none;
+            border-bottom: $border;
+            outline: none;
+            background-color: transparent;
+            color: $title-color;
+            cursor: pointer;
+            transition: $animation-primary;
+
+            &:hover {
+                transition: $animation-primary;
+                border-bottom: $border;
+            }
+
+            &:focus {
+                border-bottom: $border;
+                transition: $animation-primary;
+            }
+
+            &::placeholder {
+                color: $title-color;
+            }
+
+            &::-moz-placeholder {
+                /* Firefox 19+ */
+                    color: $title-color;
+                opacity: 1;
+            }
+        }
+
+
+        .story__btn {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid $title-color;
+            border-radius: $border-radius;
+            font-size: 1.5rem;
+            background-color: $title-color;
+            color: $background-color;
+            cursor: pointer;
+            transition: $animation-primary;
+
+            @media (max-width: 555px) {
+                padding: 0rem;
+            }
+        }
+    }
+
+    &__error {
+        @include flex(row, flex-start, center);
+        width: 100%;
+        padding: 0 $spacing-sm;
+        margin-top: $spacing-sm;
+        border: $border;
+        border-radius: $border-radius;
+        color: #721c24;
+        background-color: #f8d7da;
+        font-size: $small-font-size;
+    }
+}
+
+.upper {
+    @include position(absolute, 40%, null, null, 55vw);
+    width: fit-content;
+
+    button {
+        background-color: $dimmed-color;
+        padding: $spacing-sm $spacing-md;
+        font-size: $normal-font-size;
+        border-radius: $border-radius;
+        transition: $animation-primary;
+
+        &:hover {
+            transition: $animation-primary;
+            background-color: $second-accent-color;
+        }
+    }
+}
