@@ -24,16 +24,14 @@ const Gallery: React.FC = () => {
 
     const verticalTransforms = {
         transform1: useTransform(scrollYProgress, [0, 1], [0, dimension.height * 1.25]),
-        transform2: useTransform(scrollYProgress, [0, 1], [0, dimension.height * 2.7]),
+        transform2: useTransform(scrollYProgress, [0, 1], [0, dimension.height * 2]),
         transform3: useTransform(scrollYProgress, [0, 1], [0, dimension.height * 1.25]),
-        transform4: useTransform(scrollYProgress, [0, 1], [0, dimension.height * 2.0]),
     };
 
     const horizontalTransforms = {
         transform1: useTransform(scrollYProgress, [0, 1], [0, dimension.width * -1.75]),
         transform2: useTransform(scrollYProgress, [0, 1], [0, dimension.width * -0.73]),
         transform3: useTransform(scrollYProgress, [0, 1], [0, dimension.width * -2.1]),
-        transform4: useTransform(scrollYProgress, [0, 1], [0, dimension.width * -1.5]),
     };
 
     const resize = useCallback(() => {
@@ -54,17 +52,16 @@ const Gallery: React.FC = () => {
             <div ref={gallery} className={styles.gallery}>
                 {isTablet ? (
                     <>
-                        <Row data={[Data[4], Data[5], Data[8], Data[6]]} transform={horizontalTransforms.transform1} top="0" />
-                        <Row data={[Data[0], Data[7], Data[9], Data[3]]} transform={horizontalTransforms.transform2} top="25vh" />
-                        <Row data={[Data[10], Data[9], Data[10], Data[2]]} transform={horizontalTransforms.transform3} top="50vh" />
-                        <Row data={[Data[1], Data[8], Data[5], Data[4]]} transform={horizontalTransforms.transform4} top="75vh" />
+                        <Row data={[Data[4], Data[5], Data[8]]} transform={horizontalTransforms.transform1} top="0" />
+                        <Row data={[Data[0], Data[7], Data[9]]} transform={horizontalTransforms.transform2} top="33.3vh" />
+                        <Row data={[Data[10], Data[9], Data[10]]} transform={horizontalTransforms.transform3} top="66.6vh" />
+
                     </>
                 ) : (
                     <>
-                        <Column data={[Data[4], Data[5], Data[8], Data[6]]} transform={verticalTransforms.transform1} />
-                        <Column data={[Data[0], Data[7], Data[9], Data[3]]} transform={verticalTransforms.transform2} />
-                        <Column data={[Data[10], Data[9], Data[10], Data[2]]} transform={verticalTransforms.transform3} />
-                        <Column data={[Data[1], Data[8], Data[5], Data[4]]} transform={verticalTransforms.transform4} />
+                        <Column data={[Data[4], Data[5], Data[8]]} transform={verticalTransforms.transform1} />
+                        <Column data={[Data[0], Data[7], Data[9]]} transform={verticalTransforms.transform2} />
+                        <Column data={[Data[10], Data[9], Data[10]]} transform={verticalTransforms.transform3} />
                     </>
                 )}
             </div>

@@ -187,6 +187,7 @@ $container-max-width-xxxl: 1740px;
 $font-satoshi: var(--font-satoshi);
 $font-bedon: var(--font-bedon);
 $font-kiona: var(--font-kiona);
+$font-playList: var(--font-playList);
 $body-font: $font-satoshi;
 $font-primary: $font-bedon;
 $paragraph-font: $font-satoshi;
@@ -194,7 +195,7 @@ $title-font: $font-bedon;
 $subtitle-font: $font-satoshi;
 $header-font: $font-bedon;
 $kiona-font: $font-kiona;
-
+$playlist-font: $font-playList;
 
 
 
@@ -297,13 +298,17 @@ $kiona-font: $font-kiona;
 }
 
 .sectionTitle {
-    font-size: 3rem;
+    font-family: $header-font;
+    font-size: $biggest-font-size;
     color: $title-color;
-    margin-bottom: $spacing-md;
-    font-weight: 450;
-    line-height: 1;
-    max-width: $container-max-width-lg;
-    font-family: $paragraph-font;
+    text-align: left;
+    text-transform: capitalize;
+    line-height: 89.833%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-display: swap;
+    letter-spacing: -0.01rem;
 
     @include respond-to(large-screen) {
         font-size: 3.5rem;
@@ -311,6 +316,10 @@ $kiona-font: $font-kiona;
     }
 
     @include respond-to(laptop) {
+        font-size: $semi-big-font-size;
+    }
+
+    @include respond-to(small-tablet) {
         font-size: $bigger-font-size;
     }
 
@@ -435,24 +444,25 @@ $kiona-font: $font-kiona;
 
 
 @mixin mainButton($bgColor, $color) {
-    width: 100%;
-    padding: $spacing-lg;
-    border: $border;
-    border-radius: $border-radius;
-    font-size: $small-font-size;
-    background-color: $bgColor;
+    @include flexCenter(row);
+    line-height: 1;
+    text-decoration: none;
     color: $color;
-    cursor: pointer;
-    transition: $animation-primary;
-    margin: $spacing-xs 0;
-    white-space: nowrap;
-    // clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%) !important;
+    font-size: $normal-font-size;
+    padding: $spacing-sm $spacing-md;
+    border-radius: 0px;
+    width: fit-content;
+    height: 40px;
+    font-weight: bold;
+    border: 2px solid $color;
+    transition: 0.3s;
+    box-shadow: 5px 5px 0px 0px rgba($color, 1);
+    background-color: $bgColor;
 
 
 
     &:hover {
-        transition: $animation-primary;
-        background-color: darken($bgColor, $input-hover-border-darken);
+        box-shadow: 0 0 0 0 rgba($color, 1);
     }
 }
 
@@ -504,6 +514,7 @@ $kiona-font: $font-kiona;
     @include flex(row, null, center);
     height: fit-content;
     gap: $spacing-sm;
+
     @include respond-to(small-tablet) {
         flex-direction: column;
         gap: $spacing-sm;
@@ -517,4 +528,52 @@ $kiona-font: $font-kiona;
     color: #721c24;
     background-color: #f8d7da;
 
+}
+
+.eyebrow {
+    position: absolute;
+    top: -4vh;
+    left: 0;
+    font-family: $playlist-font;
+    font-size: $bigger-font-size;
+    color: $accent-color;
+    line-height: 1.1
+}
+
+.swiperButtons {
+    @include flex(row, flex-end, flex-end);
+    gap: $spacing-xs;
+    width: 100%;
+    height: 100%;
+    padding: $spacing-lg;
+
+
+    @include respond-to(medium-tablet) {
+        padding: 0;
+        padding-top: 4vh;
+        gap: $spacing-sm;
+    }
+
+    button {
+        @include flexCenter(row);
+        gap: $spacing-sm;
+        padding: $spacing-sm;
+        border: $border;
+        border-radius: $border-radius;
+        font-size: $normal-font-size;
+        font-family: $title-font;
+        background-color: $title-color;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        transition: $animation-primary;
+
+        cursor: pointer;
+
+        svg {
+            fill: $cream-color;
+        }
+
+        &:hover {
+            background-color: $accent-color;
+        }
+    }
 }

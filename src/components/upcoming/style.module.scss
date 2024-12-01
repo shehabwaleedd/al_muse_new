@@ -1,0 +1,167 @@
+@import '../../styles/vairables';
+
+.upcoming {
+    @include flexCenter(column);
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    gap: $spacing-sm;
+    padding-top: 10vh;
+
+    h2 {
+        font-size: $bigger-font-size;
+        color: $title-color;
+        text-transform: uppercase;
+        letter-spacing: 0.25rem;
+        position: relative;
+        text-align: left;
+        width: 100%;
+
+        @include respond-to(medium-tablet) {
+            font-size: $big-font-size;
+        }
+    }
+}
+
+.header {
+    @include flex(row, space-between, center);
+    width: 100%;
+    padding: $spacing-sm;
+    padding-bottom: 0;
+    
+    h2 {
+        font-size: $bigger-font-size;
+        text-transform: capitalize;
+        letter-spacing: normal;
+        
+        @media (max-width: 555px) {
+            font-size: 2rem;
+        }
+    }
+}
+
+
+.navButton {
+
+    transition: opacity $transition-normal;
+
+    &.disabled {
+        opacity: 1;
+        cursor: not-allowed;
+    }
+}
+
+.slide {
+    @include flexCenter(column);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.imageWrapper {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+
+    @include respond-to(medium-tablet) {
+        height: 50vh;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 45%,
+            var(--title-color) 100%
+        );
+        z-index: 1;
+    }
+}
+
+.image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    @include position(absolute, null, null, 0, 0);
+    @include flex(column, flex-start, flex-start);
+    padding: $spacing-sm;
+    gap: $spacing-sm;
+    z-index: 2;
+
+    h2 {
+        font-size: $big-font-size;
+        font-weight: $bold-font-weight;
+        color: $background-color;
+        text-align: left;
+        text-transform: none;
+        letter-spacing: normal;
+    }
+
+    p {
+        font-size: $small-font-size;
+        font-weight: $body-font-weight;
+        color: $container-color;
+        text-align: left;
+        max-width: 90%;
+    }
+
+    a,
+    button,
+    svg {
+        padding: 0;
+        color: $background-color;
+        fill: $background-color;
+    }
+}
+
+.skeleton {
+    @include flex(row, space-between, stretch);
+    width: 100%;
+    padding: $spacing-sm;
+
+    @include respond-to(medium-tablet) {
+        flex-direction: column;
+    }
+}
+
+.skeletonSlide {
+    flex: 1;
+    height: 80vh;
+    background: linear-gradient(
+        90deg,
+        rgba($title-color, 0.1) 25%,
+        rgba($title-color, 0.15) 50%,
+        rgba($title-color, 0.1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+
+
+    @include respond-to(medium-tablet) {
+        height: 50vh;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

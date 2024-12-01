@@ -41,11 +41,7 @@ const FilterableEventsList: React.FC<FilterableEventsListProps> = ({
     return (
         <section className={styles.communityEvents}>
             <div>{asideContent}</div>
-            <FiltersPanel
-                filters={filters}
-                uniqueValues={uniqueValues}
-                onFilterChange={handleFilterChange}
-            />
+            <FiltersPanel filters={filters} uniqueValues={uniqueValues} onFilterChange={handleFilterChange}/>
             {loading ? (
                 <Skeleton />
             ) : (

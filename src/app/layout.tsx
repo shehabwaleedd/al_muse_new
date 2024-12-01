@@ -30,10 +30,18 @@ const bedon = localFont({
 })
 
 const kiona = localFont({
-  src: '../../public/fonts/Kiona Regular.woff',
+  src: '../../public/fonts/Kiona-Bold.ttf',
   variable: '--font-kiona',
   display: 'swap',
   weight: '100 900',
+  preload: true,
+})
+
+const playList = localFont({
+  src: '../../public/fonts/Playlist Script.woff2',
+  variable: '--font-playList',
+  display: 'swap',
+  weight: '600',
   preload: true,
 })
 
@@ -100,7 +108,7 @@ export function generateMetadata() {
 
 export default function RootLayout({ children }: { children: JSX.Element | JSX.Element[] }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${satoshi.variable} ${bedon.variable} ${kiona.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${satoshi.variable} ${bedon.variable} ${kiona.variable} ${playList.variable}`}>
       <body className="App" >
         <AuthProvider>
           <SubComponentCotextProvider>

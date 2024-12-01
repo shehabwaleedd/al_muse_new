@@ -48,7 +48,7 @@ export interface CustomFieldProps {
     name: string;
     label?: string;
     fieldType: 'input' | 'textarea' | 'select' | 'checkbox' | 'file' | 'date';
-    setFieldValue?: (field: string, value: any, shouldValidate?: boolean) => void;
+    setFieldValue?: (field: string, value: string[]) => void;
     options?: Array<{ label: string; value: string }>;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // New prop
     value?: string | number;
@@ -129,7 +129,7 @@ export interface ImagesUploaderProps {
 export interface CheckboxGroupFieldArrayProps {
     name: string;
     options: CheckboxOption[];
-    setFieldValue: (field: string, value: any) => void;
+    setFieldValue: (field: string, value: string[]) => void;
     values: string[];
 }
 
@@ -203,3 +203,29 @@ export const categories = [
 ] as const;
 
 export type Category = typeof categories[number];
+
+export type SocialMediaLink = {
+    platform: string;
+    url: string;
+    icon: React.ComponentType;
+};
+
+export interface BoxData {
+    id: number;
+    content: string;
+    image?: string;
+    backgroundColor: string;
+    color: string;
+    socialLinks?: SocialMediaLink[];
+}
+
+
+export interface BaseJourneyItem {
+    id: string;
+    title: string;
+    time: string;
+    location: string;
+    comment: string;
+    image?: string;
+    company?: string;
+}

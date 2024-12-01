@@ -8,14 +8,15 @@
   --title-font: var(--font-bedon);
   --subtitle-font: var(--font-satoshi);
   --header-font: var(--font-bedon);
-  --kiona-font: var(var(--kiona-font))
-
+  --kiona-font: var(var(--kiona-font));
+  --playList-font: var(--font-playList);
   --background-color: #fafafa;
   --cream-color: #f1f0ee;
   --title-color: #202020;
   --original-pink: #ffaadd;
   --original-deepPink: #7d0986;
   --original-grey: #575756;
+  --original-light-grey: #b1b1b1;
   --original-min-green: #B9E4B4;
   --original-green: #09745F;
   --delete-color: #d48888;
@@ -43,12 +44,12 @@
 }
 
 html {
-  background-color: var(--darker-background-three);
+  background-color: var(--background-color);
 }
 
 body {
   max-width: 100vw;
-  background-color: var(--darker-background-three);
+  background-color: var(--background-color);
   overscroll-behavior-x: none;
   touch-action: pan-y;
   overflow-x: hidden;

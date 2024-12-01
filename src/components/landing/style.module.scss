@@ -1,106 +1,50 @@
 @import "../../styles/vairables";
 
 .landing {
-    
-    @include flexCenter(column);
-    height: 100vh;
+
+    @include flexCenter(row);
+    height: 80vh;
     width: 100%;
     gap: $spacing-sm;
     transition: $animation-primary;
-    padding-top: 6vh;
+    padding-top: 10vh;
+    position: relative;
     z-index: 2;
-    @include position(absolute, 0, 0, null, 0);
 
-
-    @include respond-to(desktop) {
-        padding: 0rem;
-    }
-
-
-    &__upper {
-        @include flexCenter(column);
+    .left {
+        @include flex(column, center, flex-start);
+        width: 100%;
+        height: 100%;
         gap: $spacing-sm;
-        width: 100%;
-        position: relative;
-        top: -20vh;
+        padding: $spacing-lg; 
+        
 
-        @include respond-to(phone) {
-            padding: 0.5rem;
-            top: -14vh;
+        .button {
+            @include mainButton($accent-color, $title-color);
         }
-
-        p {
-            font-family: $subtitle-font;
-            font-size: $medium-font-size;
-            color: $subtitle-color;
-            letter-spacing: -0.01rem;
-            text-transform: capitalize;
-            font-display: swap;
-            width: 100%;
-            text-align: center;
-        }
-
-        span {
-            color: $title-color
-        }
-
     }
 
-    &__lower {
-        @include position(relative, 0, 0, null, null);
-        min-height: 100vh;
+    .right {
+        @include flex(column, flex-start, flex-start);
         width: 100%;
-
+        height: 100%;
+        gap: $spacing-sm;
         img {
-            width: 100%;
-            height: 100vh;
+            height: 80vh;
             object-fit: cover;
-            transition: $animation-primary;
-
         }
-
-        @include respond-to(small-tablet) {
-            top: -8vh;
-        }
-
     }
 }
 
-.abs {
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
 
-.img1 {
-    position: relative;
-    z-index: 1;
-
-
-}
-
-.img2 {
-    position: absolute;
-    z-index: 9;
-    top: 0;
-}
-
-
-
-.landing__upper_content {
-    @include flexCenter(column);
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-    width: 100%;
-}
 
 .headers {
+    position: relative;
     h2 {
         font-family: $header-font;
-        font-size: $navigation-font-size;
-        color: $container-color;
-        text-align: center;
+        font-size: $biggest-font-size;
+        color: $title-color;
+        text-align: left;
         text-transform: capitalize;
         line-height: 89.833%;
         margin: 0;
@@ -119,48 +63,3 @@
     }
 }
 
-
-
-.magnetic {
-    a {
-        border-radius: $border-radius;
-        border: 1px solid $container-color;
-        align-content: center;
-        @include flexCenter(row);
-        background-color: transparent;
-        font-family: $body-font;
-        z-index: 9;
-        gap: $spacing-xs;
-        transition: $animation-primary;
-        padding: $spacing-xs $spacing-sm;
-
-        @include respond-to(small-tablet) {
-            font-size: $small-font-size;
-        }
-
-        button {
-            transition: $animation-primary;
-            color: $title-color !important;
-            font-size: $small-font-size;
-        }
-    }
-}
-
-.buttons {
-    @include position(absolute, 50%, null, null, 50%);
-    transform: translate(-50%);
-    z-index: $z-index-overlay;
-    @include flex(row, center, center);
-    gap: $spacing-sm;
-
-    button {
-        @include mainButton($container-color, $title-color)
-    }
-    .contactUsBtn {
-        background-color: $second-accent-color !important;
-        &:hover {
-            transition: $animation-primary;
-            background-color: rgba($second-accent-color, 0.8);
-        }
-    }
-}

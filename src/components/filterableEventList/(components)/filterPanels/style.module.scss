@@ -6,15 +6,18 @@
     width: fit-content;
     gap: $spacing-lg;
 
+
     .search {
         background-color: #f1f0ee3e;
         border-radius: $border-radius;
         box-shadow: 0 4px 30px rgba(96, 77, 58, 0.1);
         backdrop-filter: blur(5px);
         padding: $spacing-xxs;
+        width: 45vw;
+
         input {
             @include input-base;
-            width: fit-content !important;
+            width: 45vw !important;
             text-align: center;
             padding: $spacing-sm;
 

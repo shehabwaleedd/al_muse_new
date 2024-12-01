@@ -1,0 +1,25 @@
+@import "../../styles/vairables";
+
+.iconContainer {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.star {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.outline {
+    stroke-width: 2;
+    fill: none;
+}
+
+.fill {
+    stroke: none;
+}

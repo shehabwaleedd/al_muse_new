@@ -1,0 +1,49 @@
+@import '../../styles/vairables';
+
+.container {
+    @include flexCenter(column);
+    width: 100%;
+    padding: clamp(2rem, 5vw, 10vh);
+    position: relative;
+    overflow: hidden;
+
+    @include respond-to(phone) {
+        padding: $spacing-section-mobile;
+    }
+}
+
+.timeline {
+    width: min(90%, $container-max-width-lg);
+    margin: 0 auto;
+    position: relative;
+    padding: clamp(2rem, 5vw, $spacing-xl) 0;
+}
+
+.header {
+    position: relative;
+}
+
+.progressLine {
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    transform-origin: top;
+    transform: translateX(-50%);
+    background-color: rgba($border-color, 0.2);
+    filter: drop-shadow(0 0 8px rgba($accent-color, 0.3));
+
+    @include respond-to(medium-tablet) {
+        left: 2rem;
+    }
+
+    @include respond-to(phone) {
+        left: 1rem;
+    }
+}
+
+.itemsList {
+    @include reset-list;
+    position: relative;
+    gap: clamp(1.5rem, 4vw, 3rem);
+}

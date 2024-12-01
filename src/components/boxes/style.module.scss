@@ -1,0 +1,124 @@
+@import '../../styles/vairables';
+
+.boxes {
+    width: 100%;
+    padding-top: 10vh;
+    
+    @include respond-to(phone) {
+        padding: 5vh 0;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+
+    
+    @include respond-to(medium-tablet) {
+        grid-template-columns: 1fr;
+        gap: $spacing-sm;
+    }
+}
+
+.box {
+    position: relative;
+    min-height: 300px;
+    padding: $spacing-lg;
+    transition: transform $transition-normal;
+    
+    @include respond-to(phone) {
+        min-height: 250px;
+        padding: $spacing-md;
+    }
+    
+    &:hover {
+        transform: translateY(-5px);
+    }
+
+    &.noPadding {
+        padding: 0;
+    }
+}
+
+.imageBox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+    transition: transform $transition-normal;
+    
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.contentBox {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.content {
+    font-family: $kiona-font;
+    font-size: $body-font-size;
+    line-height: 1.5;
+    
+    @include respond-to(phone) {
+        font-size: $normal-font-size;
+    }
+}
+
+.socialBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.socialTitle {
+    font-family: $kiona-font;
+    font-size: $big-font-size;
+    margin-bottom: $spacing-md;
+    font-weight: $medium-font-weight;
+    
+    @include respond-to(phone) {
+        font-size: $medium-font-size;
+        margin-bottom: $spacing-sm;
+    }
+}
+
+.socialLinks {
+    display: flex;
+    gap: $spacing-sm;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: $border-radius-full;
+    background-color: transparent;
+    border: 1px solid rgba($white, 0.2);
+    transition: all $transition-normal;
+    
+    svg {
+        width: 20px;
+        height: 20px;
+        color: #fff;
+    }
+    
+    &:hover {
+        background-color: rgba($white, 0.1);
+        transform: translateY(-2px);
+    }
+}

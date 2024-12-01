@@ -1,0 +1,107 @@
+@import '../../styles/vairables';
+
+.container {
+    position: relative;
+    width: 100%;
+    margin: $spacing-xl 0;
+    display: flex;
+    align-items: flex-start;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    @include respond-to(medium-tablet) {
+        margin: $spacing-lg 0;
+    }
+}
+
+.timelineIndicator {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    @include respond-to(medium-tablet) {
+        left: 1rem;
+    }
+}
+
+.content {
+    width: 42.5%;
+    padding: $spacing-lg;
+    background: rgba($white, 0.05);
+    border-radius: $border-radius;
+    backdrop-filter: blur(10px);
+    box-shadow: $box-shadow-lg;
+
+    @include respond-to(medium-tablet) {
+        width: calc(100% - 4rem);
+        margin-left: 4rem !important;
+    }
+}
+
+.left {
+    justify-content: flex-start;
+
+    .content {
+        margin-left: $spacing-xl;
+    }
+}
+
+.right {
+    justify-content: flex-end;
+
+    .content {
+        margin-right: $spacing-xl;
+    }
+
+    @include respond-to(medium-tablet) {
+        justify-content: flex-start;
+    }
+}
+
+.header {
+    margin-bottom: $spacing-md;
+}
+
+.title {
+    font-size: $big-font-size;
+    color: $title-color;
+    margin-bottom: $spacing-xs;
+    font-family: $kiona-font;
+    letter-spacing: -0.05rem;
+
+    .company {
+        color: $accent-color;
+        margin-left: $spacing-xs;
+    }
+}
+
+.meta {
+    font-size: $small-font-size;
+    color: $subtitle-color;
+    font-family: $body-font;
+}
+
+.imageContainer {
+    width: 100%;
+    margin: $spacing-md 0;
+    border-radius: $border-radius;
+    overflow: hidden;
+}
+
+.image {
+    @include responsive-image;
+}
+
+.comment {
+    @extend .sectionText;
+    color: $text-color;
+    font-family: $body-font;
+    font-size: $normal-font-size;
+}
