@@ -1,3 +1,5 @@
+import { MotionValue } from 'framer-motion';
+
 export interface EventType {
     title?: string;
     description?: string;
@@ -228,4 +230,48 @@ export interface BaseJourneyItem {
     comment: string;
     image?: string;
     company?: string;
+}
+
+
+export interface BaseSlideProps {
+    direction: 'left' | 'right';
+    left: string;
+    progress: MotionValue<number>;
+}
+
+// Image + Text version
+export interface ImagePhraseProps {
+    src: string;
+    text: string;
+}
+
+export interface ImageSlideProps extends BaseSlideProps {
+    src: string;
+    text: string;
+}
+
+export interface ImageSlidingParallaxProps {
+    slides: Array<{
+        image: string;
+        direction: 'left' | 'right';
+        offset: string;
+        text: string;
+    }>;
+}
+
+// Text-only version
+export interface TextPhraseProps {
+    text: string;
+}
+
+export interface TextSlideProps extends BaseSlideProps {
+    texts: string[];
+}
+
+export interface TextSlidingParallaxProps {
+    slides: Array<{
+        texts: string[];
+        direction: 'left' | 'right';
+        offset: string;
+    }>;
 }

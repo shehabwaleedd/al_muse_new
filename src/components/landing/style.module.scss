@@ -7,7 +7,7 @@
     width: 100%;
     gap: $spacing-sm;
     transition: $animation-primary;
-    padding-top: 10vh;
+    margin-top: 20vh;
     position: relative;
     z-index: 2;
 
@@ -16,7 +16,6 @@
         width: 100%;
         height: 100%;
         gap: $spacing-sm;
-        padding: $spacing-lg; 
         
 
         .button {
@@ -25,7 +24,7 @@
     }
 
     .right {
-        @include flex(column, flex-start, flex-start);
+        @include flexCenter(column);
         width: 100%;
         height: 100%;
         gap: $spacing-sm;
@@ -39,7 +38,9 @@
 
 
 .headers {
+    @include flex(column, center, flex-start);
     position: relative;
+    padding: $spacing-lg; 
     h2 {
         font-family: $header-font;
         font-size: $biggest-font-size;

@@ -2,11 +2,6 @@
 
 .boxes {
     width: 100%;
-    padding-top: 10vh;
-    
-    @include respond-to(phone) {
-        padding: 5vh 0;
-    }
 }
 
 .grid {
@@ -30,10 +25,6 @@
     @include respond-to(phone) {
         min-height: 250px;
         padding: $spacing-md;
-    }
-    
-    &:hover {
-        transform: translateY(-5px);
     }
 
     &.noPadding {
@@ -81,6 +72,7 @@
     align-items: center;
     height: 100%;
     text-align: center;
+    
 }
 
 .socialTitle {

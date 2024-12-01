@@ -7,8 +7,9 @@ import Testimonials from "@/components/testimonials";
 import Gallery from "@/components/perpective/Perpective";
 import Boxes from "@/components/boxes";
 import Upcoming from "@/components/upcoming";
-import SlidingParallax from "@/animation/textParallax";
 import Journey from "@/components/journey";
+import TextSlidingParallax from "@/animation/textParallax";
+import SlidingParallax from "@/animation/slidingParallax";
 
 
 const slides = [
@@ -29,6 +30,24 @@ const slides = [
     direction: 'left' as const,
     offset: '-75%',
     text: 'Leadership Development'
+  }
+]
+
+const companiesData = [
+  {
+    texts: ['Google', 'Apple', 'Microsoft', 'Amazon', 'Facebook'],
+    direction: 'left' as const,
+    offset: '-40%'
+  },
+  {
+    texts: ['Google', 'Apple', 'Microsoft', 'Amazon', 'Facebook'],
+    direction: 'right' as const,
+    offset: '-40%'
+  },
+  {
+    texts: ['Google', 'Apple', 'Microsoft', 'Amazon', 'Facebook'],
+    direction: 'left' as const,
+    offset: '-40%'
   }
 ]
 
@@ -103,7 +122,7 @@ export default async function Home() {
         <EventsClient events={events.slice(0, 5)} />
       </RevealAnimation> */}
 
-      {/* <Gallery /> */}
+      <TextSlidingParallax slides={companiesData} />
       <DynamicTextAnimation
         phrase="Empower women with knowledge, skills, and connections to make a difference."
         backgroundColor='var(--light-accent-color-two)'

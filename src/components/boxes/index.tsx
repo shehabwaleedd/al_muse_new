@@ -99,8 +99,7 @@ const Boxes: React.FC = () => {
         <section className={styles.boxes} aria-label="Feature Highlights">
             <div className={styles.grid}>
                 {BoxesData.map((box) => (
-                    <div
-                        key={box.id}
+                    <div key={box.id}
                         className={`${styles.box} ${box.id === 1 ? styles.noPadding : ''}`}
                         style={{ backgroundColor: box.backgroundColor, color: box.color }}
                     >
