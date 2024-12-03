@@ -10,7 +10,6 @@ import { AnimationProvider } from "../context/AnimationContext";
 import { Toaster } from "sonner";
 import AuthForms from "@/components/AuthForm";
 import localFont from "next/font/local";
-import Join from "./abouts/components/join";
 
 const satoshi = localFont({
   src: '../../public/fonts/Satoshi-Regular.woff2',
@@ -118,7 +117,6 @@ export default function RootLayout({ children }: { children: JSX.Element | JSX.E
               {children}
               <Toaster />
               <AuthForms />
-              <Join />
               <Footer />
             </AnimationProvider>
           </SubComponentCotextProvider>
