@@ -2,7 +2,7 @@
 
 .footer {
     color: $container-color;
-    background-color: $darker-background-three;
+    background-color: $background-color;
     @include flexCenter(column);
     @include position(relative, 0, 0, 0, 0);
     height: fit-content;
@@ -12,7 +12,7 @@
 
 .upper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     width: 100%;
     padding: $spacing-sm;
     padding-bottom: $spacing-lg;
@@ -24,6 +24,9 @@
 
         @include respond-to(medium-tablet) {
             font-size: $normal-font-size;
+        }
+        span {
+            color: $accent-color;
         }
     }
 
@@ -37,7 +40,8 @@
 .subscripe {
     @include flex(column, flex-start, flex-start);
     gap: $spacing-sm;
-
+    width: 100%;
+    
     span {
         font-size: $big-font-size;
         color: $title-color;
@@ -56,11 +60,12 @@
         }
     }
 
-    button {
+    a {
         @include flex(row, flex-start, center);
         gap: $spacing-xs;
         width: 90%;
         transition: $animation-primary;
+
         h5 {
             font-size: $normal-font-size;
             font-family: $kiona-font;
@@ -95,19 +100,12 @@
         }
     }
 
-    svg {
-        background-color: $title-color;
-        border-radius: $border-radius;
-        padding: $spacing-sm $spacing-xs;
-        color: $dimmed-color;
-        font-size: 3rem; 
-        transition: $animation-primary;
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-
-    }
 }
 
 .subscripe {
+    h4 {
+        font-family: $kiona-font;
+    }
     @include respond-to(medium-tablet) {
         align-items: flex-start;
     }
@@ -136,6 +134,11 @@
             font-family: $kiona-font;
         }
 
+        a {
+            font-family: $kiona-font;
+            font-size: $small-font-size !important;
+        }
+
         @include respond-to(medium-tablet) {
             width: 100%;
             border-top: $border;
@@ -147,6 +150,8 @@
             width: 100%;
             justify-content: space-between;
         }
+
+
     }
 
     &_left {
@@ -156,6 +161,7 @@
     }
 
     &_right {
+
 
 
         @include respond-to(ipad) {
@@ -193,8 +199,31 @@
 
 .link_mobileOnly {
     display: block;
-    
+
     @media (min-width:1024px) {
         display: none;
+    }
+}
+
+.pageLink {
+    font-family: $kiona-font;
+    font-size: $medium-font-size;
+    color: $title-color;
+    width: 100%;
+    line-break: anywhere;
+
+    &:hover {
+        color: #B377B7;
+    }
+}
+
+.buttonContainer {
+    @include flex(row, center, center);
+
+    h5 {
+        font-family: $kiona-font;
+        font-size: $normal-font-size;
+        color: $title-color;
+        padding-left: $spacing-sm;
     }
 }

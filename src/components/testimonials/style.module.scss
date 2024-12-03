@@ -13,39 +13,26 @@
     }
 
     &_btns {
-        @include flex(row, flex-end, flex-end);
-        gap: $spacing-xs;
+        @include position(absolute, 50%, null, null, 0);
+        transform: translateY(-50%);
         width: 100%;
-        height: 100%;
-        padding: $spacing-lg;
-
+        z-index: 20;
+        @include flex(row, space-between, center);
+        padding: 0 $spacing-lg;
 
         @include respond-to(medium-tablet) {
-            padding: 0;
-            padding-top: 4vh;
-            gap: $spacing-sm;
+            padding: 0 $spacing-sm;
         }
 
         button {
             @include flexCenter(row);
-            gap: $spacing-sm;
-            padding: $spacing-sm;
-            border: $border;
-            border-radius: $border-radius;
             font-size: $normal-font-size;
             font-family: $title-font;
-            background-color: $title-color;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
 
             svg {
-                fill: $cream-color;
-            }
-
-            &:hover {
-                background-color: $darker-background-three;
+                fill: $title-color;
             }
         }
     }
@@ -213,18 +200,22 @@
     }
 }
 
-.testimonial__upperSection {
-    @include flex(column, space-around, center);
-    padding: 5vh 0;
-    padding-top: 0;
+.upperSection {
+    @include flex(column, center, center);
     width: 100%;
     height: fit-content;
+    position: relative;
+
+    .eyebrow {
+        top: -1vh;
+    }
 
 
     h3 {
         font-family: $header-font;
         font-size: $biggest-font-size;
         max-width: 75%;
+        position: relative;
         text-align: center;
 
         @include respond-to(desktop) {
@@ -244,12 +235,14 @@
 .testimonialsSection {
     padding: $spacing-section;
     @include flexCenter(column);
-    gap: $spacing-sm;
+    gap: $spacing-lg;
     width: 100%;
     height: 100%;
     position: relative;
     z-index: 10;
+
     @include respond-to(medium-tablet) {
         padding: $spacing-section-mobile;
     }
 }
+

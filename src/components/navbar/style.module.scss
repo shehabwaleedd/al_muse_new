@@ -1,6 +1,6 @@
 @import "@/styles/_vairables.scss";
 
-.nav_logo {
+.logo {
     @include position(fixed, $spacing-sm, null, null, null);
     z-index: 99999;
     height: fit-content;

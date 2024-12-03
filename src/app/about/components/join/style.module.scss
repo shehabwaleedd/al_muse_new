@@ -3,8 +3,8 @@
 .join {
     @include flexCenter(column);
     width: 100%;
-    height: 70vh;
-    background-color: $darker-background-three;
+    height: 50vh;
+    background-color: $background-color;
     gap: 10vh;
     position: relative;
     z-index: 1;
@@ -25,20 +25,12 @@
         }
     }
 
-    button {
-        @include flexCenter(row);
-        width: fit-content;
-        height: fit-content;
-        padding: $spacing-xl $spacing-lg;
+    p {
         gap: $spacing-xs;
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        border-radius: $border-radius;
         font-size: $small-font-size;
-        background-color: $title-color;
         color: $cream-color;
+        font-family: $body-font;
+        padding: $spacing-sm;
 
-        svg {
-            color: $cream-color;
-        }
     }
 }

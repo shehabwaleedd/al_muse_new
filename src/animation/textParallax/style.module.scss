@@ -3,7 +3,6 @@
 .slidingParallax {
     position: relative;
     width: 100%;
-    min-height: 50vh;
     overflow: hidden;
     background-color: $background-color;
 }
@@ -20,7 +19,6 @@
     display: flex;
     white-space: nowrap;
     will-change: transform;
-    border-bottom: 1px solid $title-color;
     width: 100%;
     margin: $spacing-lg 0;
 }
@@ -31,7 +29,7 @@
 }
 
 .phrase {
-    padding: 0 $spacing-md;
+    padding: 0 $spacing-sm;
     display: flex;
     align-items: center;
 }
@@ -42,8 +40,7 @@
     color: $title-color;
     white-space: nowrap;
     margin: 0;
-    // Optional: add some spacing between texts
-    margin-right: $spacing-sm;
+    margin-right: $spacing-xxs;
 }
 
 @include respond-to(medium-tablet) {

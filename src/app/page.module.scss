@@ -5,14 +5,15 @@
   min-height: 100vh;
   height: 100%;
   width: 100%;
+  margin-top: 15vh;
 
   @media (max-width: 1156px) {
     position: relative;
-    top: 7.5vh;
+
   }
 
   @include respond-to(small-tablet) {
-    top: 6.5vh;
+
   }
 }
 

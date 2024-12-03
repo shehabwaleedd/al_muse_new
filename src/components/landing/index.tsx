@@ -11,11 +11,13 @@ const Landing = () => {
         <motion.section className={styles.landing}>
             <section className={styles.left}>
                 <div className={styles.headers}>
-
-                    <h2>
-                        <p className={styles.eyebrow}> Almuse </p>
-                        Building Connections </h2>
-                    <h2> With Creative Tech </h2>
+                    <p className={styles.eyebrow}> Almuse </p>
+                    <h2 className={styles.sectionTitle}>
+                        Building Connections
+                    </h2>
+                    <h2 className={styles.sectionTitle}>
+                        With Creative Tech
+                    </h2>
                     <button className={styles.button}> Get in Touch </button>
                 </div>
             </section>

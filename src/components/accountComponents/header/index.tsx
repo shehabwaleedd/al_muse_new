@@ -2,13 +2,12 @@ import React from 'react'
 import { motion } from "framer-motion";
 import styles from "./style.module.scss"
 import { useAuth } from '@/context/AuthContext';
-import { TransitionLink } from '@/components/transitionLink';
 import Image from 'next/image';
 import { getVariants } from '@/animation/animate';
 import { useSubComponents } from '@/context/SubComponentsContext';
 import useWindowWidth from '@/hooks/useWindowWidth';
 import SubComponentSide from '@/common/SubComponentSide';
-
+import Link from 'next/link';
 
 const Header = () => {
     const { user } = useAuth();
@@ -26,9 +25,9 @@ const Header = () => {
             </div>
             <div className={styles.accountHeader__profile_lower}>
                 <div>
-                    <TransitionLink href="/account" label="Account" />
-                    <TransitionLink href={`/account/user/${user?._id}/user-events`} label="My Events" />
-                    <TransitionLink href="/account/createEvent" label="Create Event" />
+                    <Link href="/account" aria-label="Account">Account</Link>
+                    <Link href={`/account/user/${user?._id}/user-events`} aria-label="My Events">My Events</Link>
+                    <Link href="/account/createEvent" aria-label="Create Event">Create Event</Link>
                 </div>
                 <button onClick={handleLogOutForm} className={styles.logout}>
                     Logout

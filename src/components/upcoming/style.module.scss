@@ -10,48 +10,37 @@
     gap: $spacing-sm;
     padding-top: 10vh;
 
-    h2 {
-        font-size: $bigger-font-size;
-        color: $title-color;
-        text-transform: uppercase;
-        letter-spacing: 0.25rem;
-        position: relative;
-        text-align: left;
-        width: 100%;
-
-        @include respond-to(medium-tablet) {
-            font-size: $big-font-size;
-        }
-    }
 }
 
-.header {
+.upperSection {
     @include flex(row, space-between, center);
     width: 100%;
-    padding: $spacing-sm;
-    padding-bottom: 0;
-    
-    h2 {
-        font-size: $bigger-font-size;
-        text-transform: capitalize;
-        letter-spacing: normal;
-        
-        @media (max-width: 555px) {
-            font-size: 2rem;
-        }
+    padding: $spacing-lg $spacing-sm;
+    position: relative;
+
+    .eyebrow {
+        top: 0rem;
+        left: 1rem;
     }
+
 }
 
 
-.navButton {
+.swiperButtons {
+    @include position(absolute, 50%, null, null, 0);
+    transform: translateY(-50%);
+    width: 100%;
+    @include flex(row, space-between, center);
+    z-index: 10;
+    pointer-events: none;
 
-    transition: opacity $transition-normal;
-
-    &.disabled {
-        opacity: 1;
-        cursor: not-allowed;
+    button {
+        background-color: transparent
     }
+
 }
+
+
 
 .slide {
     @include flexCenter(column);
@@ -120,9 +109,7 @@
         max-width: 90%;
     }
 
-    a,
-    button,
-    svg {
+    a {
         padding: 0;
         color: $background-color;
         fill: $background-color;

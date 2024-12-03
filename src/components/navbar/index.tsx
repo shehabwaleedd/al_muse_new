@@ -3,7 +3,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { usePathname } from 'next/navigation';
-import { TransitionLogo2 } from '../transitionLink';
+import Link from 'next/link';
+import Image from 'next/image';
 import styles from './style.module.scss';
 import { useSubComponents } from '@/context/SubComponentsContext';
 import useWindowSize from '@/hooks/useWindowWidth';
@@ -48,7 +49,9 @@ const Navbar: React.FC = () => {
 
     return (
         <nav className={styles.nav}>
-            <TransitionLogo2 href="/" className={styles.nav_logo} />
+            <Link href="/" className={styles.logo} aria-label="Home">
+                <Image src="/logo2.svg" alt="Almuse Logo" width={200} height={200} />
+            </Link>
             <div className={styles.nav_right} role="navigation" aria-label="User menu">
                 <div className={styles.nav_right_container}>
                     <motion.div className={styles.content} initial="initial" animate={navHovered ? "animate" : "initial"} exit="exit" variants={motionVariants}>

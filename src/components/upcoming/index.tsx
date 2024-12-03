@@ -4,12 +4,10 @@ import React, { useState, useCallback } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import Image from 'next/image';
 import useAllEvents from '@/lib/events/client/useAllEvents';
-import CTA from '@/animation/CTA';
 import styles from './style.module.scss';
 import 'keen-slider/keen-slider.min.css';
-import Magnetic from '@/animation/Magnetic';
-import { GoArrowRight } from "react-icons/go";
-import { GoArrowLeft } from "react-icons/go";
+import DiamondButton from '../diamondButton';
+import Link from 'next/link';
 
 const SLIDES_PER_VIEW = {
     sm: 1,
@@ -65,24 +63,16 @@ export const Upcoming: React.FC = () => {
 
     return (
         <section className={styles.upcoming} aria-label="Upcoming Events">
-            <header className={styles.header}>
-                <h2>
+            <header className={styles.upperSection}>
+                <h2 className={styles.sectionTitle}>
                     <p className={styles.eyebrow}>Explore Our</p>
                     Upcoming Events
                 </h2>
-                <nav className={styles.swiperButtons} aria-label="Slider Navigation">
-                    <Magnetic>
-                        <button onClick={handlePrevSlide} className={`${styles.navButton} ${!canSlidePrev ? styles.disabled : ''}`} disabled={!canSlidePrev} aria-label="Previous slide">
-                            <GoArrowLeft />
-                        </button>
-                    </Magnetic>
-                    <Magnetic>
-                        <button onClick={handleNextSlide} className={`${styles.navButton} ${!canSlideNext ? styles.disabled : ''}`} disabled={!canSlideNext} aria-label="Next slide">
-                            <GoArrowRight />
-                        </button>
-                    </Magnetic>
-                </nav>
             </header>
+            <nav className={styles.swiperButtons} aria-label="Slider Navigation">
+                <DiamondButton onClick={handlePrevSlide} disabled={!canSlidePrev} ariaLabel="Previous slide" direction='prev' fillColor='var(--accent-color)' iconColor='#000' size='large' />
+                <DiamondButton onClick={handleNextSlide} disabled={!canSlideNext} ariaLabel="Next slide" direction='next' fillColor='var(--accent-color)' iconColor='#000' size='large' />
+            </nav>
 
             <div ref={sliderRef} className="keen-slider">
                 {events.map((event) => (
@@ -106,12 +96,7 @@ export const Upcoming: React.FC = () => {
                                     .slice(0, 100)}
                                 ...
                             </p>
-                            <CTA
-                                href={`/events/${event._id}`}
-                                label="View Event"
-                                backgroundColor="var(--accent-color)"
-                                buttonTextColor="var(--title-color)"
-                            />
+                            <Link href={`/events/${event._id}`} aria-label="View Event">View Event</Link>
                         </div>
                     </article>
                 ))}

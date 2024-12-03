@@ -1,7 +1,7 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styles from './style.module.scss';
-import { TransitionLink } from '@/components/transitionLink';
+import Link from 'next/link';
 
 const MobileNav = ({ navHovered }: { navHovered: boolean }) => {
     return (
@@ -21,10 +21,10 @@ const MobileNav = ({ navHovered }: { navHovered: boolean }) => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4, ease: 'easeInOut' }}
                     >
-                        <li><TransitionLink href="/community" label="Community" /></li>
-                        <li><TransitionLink href="/services" label="Services" /></li>
-                        <li><TransitionLink href="/about" label="About" /></li>
-                        <li><TransitionLink href="/contact" label="Contact" /></li>
+                        <li><Link href="/community" aria-label="Community">Community</Link></li>
+                        <li><Link href="/services" aria-label="Services">Services</Link></li>
+                        <li><Link href="/about" aria-label="About">About</Link></li>
+                        <li><Link href="/contact" aria-label="Contact">Contact</Link></li>
                     </motion.ul>
                 </motion.div>
             )}

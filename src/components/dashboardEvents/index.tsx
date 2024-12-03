@@ -143,7 +143,6 @@ const EventCard: React.FC<EventCardProps> = ({
 
     const handleAction = useCallback(async (action: ActionType) => {
         try {
-            const config = ACTION_CONFIG[action];
             let data;
 
             if (action === 'publish') {

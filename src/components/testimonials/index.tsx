@@ -2,9 +2,7 @@
 import React, { useRef, useState } from 'react';
 
 import styles from './style.module.scss';
-import { GoArrowRight } from "react-icons/go";
-import { GoArrowLeft } from "react-icons/go";
-import Magnetic from '../../animation/Magnetic';
+
 import { usePathname } from 'next/navigation';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from 'swiper';
@@ -17,6 +15,8 @@ import { CiCirclePlus } from "react-icons/ci";
 import common from "@/app/page.module.scss"
 import { motion, AnimatePresence } from 'framer-motion';
 import Border from '@/constant/border';
+import DiamondButton from '@/components/diamondButton';
+
 
 
 
@@ -94,12 +94,10 @@ const Testimonials = ({ background, svgColor }: { background: string, svgColor: 
     const container = useRef(null);
     const pathname = usePathname();
     const isHomePage = pathname === "/";
-    const { isMobile, isTablet, isDesktop } = useWindowWidth(); 
+    const { isMobile, isTablet, isDesktop } = useWindowWidth();
     const [detailsOpen, setDetailsOpen] = useState(false);
     const [selectedTestimonial, setSelectedTestimonial] = useState<TestimonialsType | null>(null);
 
-    const prevRef = useRef<HTMLButtonElement>(null);
-    const nextRef = useRef<HTMLButtonElement>(null);
 
     const handleNextSlide = () => {
         if (swiperRef.current) {
@@ -114,29 +112,40 @@ const Testimonials = ({ background, svgColor }: { background: string, svgColor: 
     };
 
     const handleDetailsOpen = (testimonial: TestimonialsType) => {
-        setSelectedTestimonial(testimonial); 
-        setDetailsOpen(true); 
+        setSelectedTestimonial(testimonial);
+        setDetailsOpen(true);
     };
 
     const handleDetailsClose = () => {
-        setDetailsOpen(false); 
+        setDetailsOpen(false);
     };
 
 
 
     return (
-        <div className={styles.testimonialsSection} style={{ backgroundColor: background }}>
-            <section className={styles.testimonial__upperSection}>
-                <h3> What others are saying about Almuse </h3>
+        <section className={styles.testimonialsSection} style={{ backgroundColor: background }}>
+            <section className={styles.upperSection}>
+                
+                <h3><p className={styles.eyebrow}>What others </p> are saying about Almuse </h3>
             </section>
-            <Border width='90%' svgColor={svgColor} background='#a7a7a7'/>
+            <Border width='90%' svgColor={svgColor} background='#a7a7a7' />
             <div className={styles.testimonials_btns}>
-                <Magnetic>
-                    <button ref={prevRef} onClick={handlePrevSlide} aria-label="Previous testimonial"><GoArrowLeft /></button>
-                </Magnetic>
-                <Magnetic>
-                    <button ref={nextRef} onClick={handleNextSlide} aria-label="Next testimonial"><GoArrowRight /></button>
-                </Magnetic>
+                <DiamondButton
+                    onClick={handlePrevSlide}
+                    ariaLabel="Previous slide"
+                    direction="prev"
+                    fillColor={svgColor}
+                    size="large"
+                    iconColor='#000'
+                />
+                <DiamondButton
+                    onClick={handleNextSlide}
+                    ariaLabel="Next slide"
+                    direction="next"
+                    fillColor={svgColor}
+                    size="large"
+                    iconColor='#000'
+                />
             </div>
             <motion.section className={styles.testimonials} ref={container}>
                 <Swiper
@@ -152,7 +161,9 @@ const Testimonials = ({ background, svgColor }: { background: string, svgColor: 
                         }
                     }
                     className={styles.testimonials__slide}
+                    
                 >
+                    
                     {testimonialsData.map((testimonial, index) => (
                         <SwiperSlide key={index}>
                             <div className={styles.testimonials__slide_container}>
@@ -196,8 +207,9 @@ const Testimonials = ({ background, svgColor }: { background: string, svgColor: 
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </section>
     );
 };
 
 export default Testimonials;
+

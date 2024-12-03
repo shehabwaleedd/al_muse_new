@@ -1,5 +1,3 @@
-import { opacity } from "@/components/navbar/anim";
-
 export const getVariants = (isMobile: boolean) => ({
     initial: {
         y: isMobile ? 400 : -20,

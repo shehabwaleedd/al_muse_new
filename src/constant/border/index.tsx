@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import styles from './style.module.scss';
-import { GoPlus } from 'react-icons/go';
+
 
 interface BorderProps {
     background?: string;
@@ -12,7 +12,7 @@ interface BorderProps {
 
 const Border: React.FC<BorderProps> = ({ background, width, color, svgColor }) => {
     return (
-        <div className={styles.borderBox} style={{ background: background ?? '#c1c1c1', width: width ?? '90%' }}>
+        <section className={styles.borderBox} style={{ background: background ?? '#c1c1c1', width: width ?? '90%' }}>
             <div className={styles.plusSign} style={{ color: color ?? '#202020' }}>
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className={styles.diamond} viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
                     <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" style={{ fill: svgColor ?? "#202020"}} stroke="none">
@@ -20,7 +20,7 @@ const Border: React.FC<BorderProps> = ({ background, width, color, svgColor }) =
                     </g>
                 </svg>
             </div>
-        </div>
+        </section>
     );
 };
 

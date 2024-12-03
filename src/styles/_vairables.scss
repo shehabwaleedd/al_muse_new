@@ -311,7 +311,7 @@ $playlist-font: $font-playList;
     letter-spacing: -0.01rem;
 
     @include respond-to(large-screen) {
-        font-size: 3.5rem;
+        font-size: 4.5rem;
         max-width: $container-max-width-xl;
     }
 

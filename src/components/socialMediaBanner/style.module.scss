@@ -1,0 +1,112 @@
+@import "../../styles/vairables";
+
+.socialMediaBanner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: $spacing-lg $spacing-xl;
+    border-top: 1px solid $title-color;
+    border-bottom: 1px solid $title-color;
+
+    @include respond-to(laptop) {
+        padding: $spacing-md $spacing-lg;
+    }
+
+    @include respond-to(phone) {
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+
+    .left {
+        display: flex;
+        gap: $spacing-md;
+
+        svg {
+            font-size: $bigger-font-size;
+            color: $title-color;
+            transition: $animation-primary;
+            border: 1px solid $title-color;
+            border-radius: 50%;
+            padding: $spacing-xs;
+            fill: $title-color;
+            transition: $animation-primary;
+
+        }
+
+        
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+
+        h4 {
+            font-size: 1rem;
+            font-family: $kiona-font;
+            letter-spacing: -0.05rem;
+        }
+
+        form {
+            width: 100%;
+            max-width: 450px;
+
+            .inputWrapper {
+                position: relative;
+                width: 100%;
+
+                input {
+                    width: 100%;
+                    padding: 16px 140px 16px 20px;
+                    border: 1px solid $title-color;
+                    border-radius: 30px;
+                    font-size: $small-font-size;
+                    outline: none;
+                    transition: $animation-primary;
+
+                    &:focus {
+                        transition: $animation-primary;
+                        border-color: $title-color;
+                    }
+                }
+
+                button {
+                    position: absolute;
+                    right: 6px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: #FFCCEB;
+                    border: 1px solid $title-color;
+                    border-radius: 25px;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    transition: $animation-primary;
+
+                    h5 {
+                        color: $title-color;
+                        margin: 0;
+                    }
+
+                    svg {
+                        color: $title-color;
+                        font-size: 18px;
+                        transition: $animation-primary;
+                    }
+
+                    &:hover {
+                        background: $accent-color;
+                        transition: $animation-primary;
+                        svg {
+                            rotate: 45deg;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

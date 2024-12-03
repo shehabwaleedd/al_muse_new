@@ -1,15 +1,14 @@
 import Landing from "../components/landing";
 import styles from "./page.module.scss";
-import RevealAnimation from "@/animation/revealAnimation";
 import DynamicTextAnimation from '@/animation/textOpacity';
-import { getEvents } from '@/lib/events/server/getDisplayedEvents';
+
 import Testimonials from "@/components/testimonials";
-import Gallery from "@/components/perpective/Perpective";
 import Boxes from "@/components/boxes";
 import Upcoming from "@/components/upcoming";
 import Journey from "@/components/journey";
 import TextSlidingParallax from "@/animation/textParallax";
 import SlidingParallax from "@/animation/slidingParallax";
+import SocialMediaBanner from "@/components/socialMediaBanner";
 
 
 const slides = [
@@ -102,15 +101,11 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
+      <SocialMediaBanner />
       <Landing />
       <Boxes />
-      <DynamicTextAnimation
-        phrase="Your Event is a reflection of your brand. We help you create an experience that resonates with your audience."
-        backgroundColor='#FFBBE4'
-        color='#555'
-        backgroundImage='/9.svg'
-      />
       <Upcoming />
+      <DynamicTextAnimation phrase="Your Event is a reflection of your brand. We help you create an experience that resonates with your audience." backgroundColor='#FFBBE4' color='#555' backgroundImage='/9.svg' />
       <SlidingParallax slides={slides} />
       <Journey items={educationData} title="Journey" primaryColor="#ffaadd" secondaryColor="#7d0986" type="experience" eyebrow="About Our" />
       {/* <RevealAnimation 
