@@ -10,7 +10,7 @@ import { AnimationProvider } from "../context/AnimationContext";
 import { Toaster } from "sonner";
 import AuthForms from "@/components/AuthForm";
 import localFont from "next/font/local";
-import Join from "./about/components/join";
+import Join from "./abouts/components/join";
 
 const satoshi = localFont({
   src: '../../public/fonts/Satoshi-Regular.woff2',

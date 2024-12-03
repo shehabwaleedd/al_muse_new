@@ -1,26 +1,313 @@
+@import "../../styles/vairables";
+
 .about {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: fit-content;
+
+    @include flexCenter(column);
+    min-height: 100lvh;
     width: 100%;
-    background-color: var(--light-accent-color-one);
-    padding-top: 12.5vh;
+    gap: $spacing-sm;
+    background-color: $background-color;
+    padding: $spacing-sm;
     position: relative;
-    z-index: 3;
+    margin: 10rem 0;
 
-    @media (max-width: 552px) {
-        padding: 0.5rem;
+    @include respond-to(phone) {
+        padding: $spacing-xs;
     }
-}
 
-.aboutWrapper {
-    position: relative;
-    min-height: 100vh;
-}
+    &_top {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        height: 100%;
+        padding-bottom: 4vh;
 
-.blurred {
-    filter: blur(5px);
-    pointer-events: none;
+        @include respond-to(laptop) {
+            padding-bottom: $spacing-sm;
+        }
+
+        @include respond-to(small-tablet) {
+            padding-bottom: 0;
+        }
+
+        p {
+            font-size: $normal-font-size;
+            color: $subtitle-color;
+            font-family: $body-font;
+            width: 50%;
+
+            @include respond-to(small-tablet) {
+                width: 100%;
+                line-height: 1.1;
+                font-family: $subtitle-font;
+            }
+        }
+
+        
+        &_lower {
+            margin-top: $spacing-sm;
+            @include flex(column, flex-start, flex-start);
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__upper {
+        @include flexCenter(column);
+        width: 100%;
+
+        &_mainVideo {
+            position: relative;
+            height: 60vh;
+            width: 100%;
+
+            @include respond-to(laptop) {
+                @include flex(row, flex-start, flex-start);
+                height: 40lvh;
+            }
+
+            video {
+                width: 100%;
+                height: 100%;
+                border-radius: 1rem;
+                object-fit: cover;
+                object-position: center center;
+                position: relative;
+
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 50%;
+                /* Adjust this value to control how much of the bottom is affected */
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, $title-color 100%);
+                border-radius: 1rem;
+                z-index: 1;
+
+                @include respond-to(small-tablet) {
+                    display: none;
+                }
+
+            }
+
+            .hero_text {
+
+                @include position(absolute, 50%, null, null, 50%);
+                transform: translate(-50%, -50%);
+                @include flexCenter(column);
+                height: 100%;
+                width: 100%;
+                padding: $spacing-sm;
+                z-index: 2;
+
+                h1 {
+                    font-size: 3vw;
+                    font-family: $title-font;
+                    color: $container-color;
+                    transition: $animation-primary;
+                    text-align: center;
+                    text-transform: uppercase;
+
+                    @include respond-to(laptop) {
+                        font-size: $body-font-size;
+                    }
+                }
+
+            }
+        }
+    }
+
+    &__clients {
+        @include flex(column, center, flex-start);
+        width: 100%;
+        height: 100%;
+        margin-top: 15vh;
+        padding-top: 5vh;
+        margin-bottom: 10vh;
+
+        h2 {
+            font-family: $title-font;
+            font-size: $bigger-font-size;
+            color: $title-color;
+            font-weight: $body-font-weight;
+            letter-spacing: normal;
+            text-transform: capitalize;
+            font-display: swap;
+            margin-bottom: $spacing-sm;
+            padding-left: $spacing-lg;
+
+            @include respond-to(medium-tablet) {
+                font-size: $big-font-size;
+                padding-left: $spacing-sm;
+            }
+        }
+
+        &_container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: $spacing-lg;
+            width: 100%;
+            height: 100%;
+            place-items: center;
+            place-content: center;
+            justify-content: center;
+            align-items: center;
+
+            @include respond-to(laptop) {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+            }
+
+            &_item {
+                margin-top: 5vh;
+
+                img {
+                    width: 50%;
+                    height: 100%;
+                    object-fit: cover;
+
+                    @include respond-to(laptop) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &__desc {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        height: 100%;
+        margin-top: $spacing-lg;
+        padding: $spacing-lg;
+        padding-top: $spacing-lg;
+        border-top: $border;
+
+        @include respond-to(small-tablet) {
+            padding: 0;
+        }
+
+        h2 {
+            font-family: $body-font;
+            font-size: $bigger-font-size;
+            color: $title-color;
+            font-weight: $body-font-weight;
+            letter-spacing: normal;
+            text-transform: capitalize;
+            font-display: swap;
+            margin-bottom: $spacing-lg;
+
+            @include respond-to(medium-tablet) {
+                font-size: $big-font-size;
+            }
+        }
+
+        &_content {
+            @include twoColumnGrid;
+            width: 100%;
+            height: 100%;
+            place-items: start;
+            place-content: start;
+
+            @include respond-to(medium-tablet) {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            &_item {
+                @include flex(column, flex-start, flex-start);
+                width: 100%;
+                height: 100%;
+                position: relative;
+                border-bottom: $border;
+                padding-bottom: $spacing-lg;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                @include respond-to(small-tablet) {
+                    &:nth-child(5) {
+                        border-bottom: none;
+                    }
+                }
+
+                @include respond-to(medium-tablet) {
+                    padding: $spacing-xs;
+                }
+
+                h3 {
+                    font-family: $body-font;
+                    font-size: $biggest-font-size;
+                    color: $title-color;
+                    letter-spacing: normal;
+                    text-transform: capitalize;
+
+                    @include respond-to(medium-tablet) {
+                        font-size: $big-font-size;
+                    }
+                }
+
+                p {
+                    font-family: $body-font;
+                    font-size: $normal-font-size;
+                    width: 100%;
+                    text-transform: lowercase;
+                    color: $text-color;
+                    transition: $animation-primary;
+
+                    @include respond-to(medium-tablet) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        &_about {
+            @include twoColumnGrid;
+            width: 100%;
+            height: 100%;
+            place-items: start;
+            place-content: start;
+            padding: $spacing-lg;
+            border-top: $border;
+
+            @include respond-to(medium-tablet) {
+                grid-template-columns: repeat(1, 1fr);
+                padding: $spacing-xs;
+            }
+
+            h2 {
+                font-family: $body-font;
+                font-size: $bigger-font-size;
+                color: $title-color;
+                letter-spacing: normal;
+                text-transform: capitalize;
+
+                @include respond-to(medium-tablet) {
+                    font-size: $big-font-size;
+                }
+            }
+
+            div {
+                @include flex(column, flex-start, flex-start);
+                gap: $spacing-sm;
+            }
+
+            p {
+                font-family: $body-font;
+                font-size: $normal-font-size;
+                font-weight: $body-font-weight;
+                letter-spacing: 0.05rem;
+                width: 100%;
+                color: $text-color;
+                transition: $animation-primary;
+                line-height: 1.5;
+                padding-top: $spacing-xs;
+            }
+
+        }
+    }
 }

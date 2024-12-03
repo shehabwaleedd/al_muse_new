@@ -1,0 +1,5 @@
+@import "../../styles/vairables";
+
+.ctaButton {
+    @include mainButton($accent-color, $title-color);
+}

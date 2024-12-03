@@ -1,4 +1,5 @@
 'use client'
+
 import React from 'react';
 import { translate } from "../../components/navbar/anim";
 import { motion } from "framer-motion"

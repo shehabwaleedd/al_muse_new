@@ -24,9 +24,10 @@
     background: #f1f0eeba;
     box-shadow: $box-shadow-lg;
     backdrop-filter: blur(15px);
-    border: 1px solid #c1c1c19b;
+    border: 1px solid #ffaadd5a;
     -webkit-backdrop-filter: blur(15px);
     box-shadow: $box-shadow-lg;
+    padding-bottom: 1rem;
     cursor: pointer;
 
     @include respond-to(ipad) {
@@ -248,7 +249,7 @@
 
 
 .card__bottom {
-  @include mainButton($title-color, $accent-color);
+  @include mainButton($accent-color, $original-deepPink);
   width: 100%;
   height: fit-content;
   @include flexCenter(row);
@@ -256,7 +257,7 @@
   text-align: center !important;
 
   a {
-    color: $original-min-green;
+    color: $title-color;
   }
 }
 

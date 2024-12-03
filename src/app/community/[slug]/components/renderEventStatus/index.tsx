@@ -11,7 +11,7 @@ import type { EventType, User } from '@/types/common';
 const Magnetic = dynamic(() => import('@/animation/Magnetic'), {
     ssr: false
 });
-const CTA = dynamic(() => import('@/animation/CTA'), {
+const CTA = dynamic(() => import('@/components/ctaButton'), {
     ssr: false
 });
 
@@ -25,14 +25,21 @@ interface EventStatusProps {
 }
 
 
-const EventStatus = memo(({ isLoggedIn, event, user, hasParticipated, setHasParticipated }: EventStatusProps) => {
-    const { isLoginOpen, setIsLoginOpen } = useSubComponents();
+const EventStatus = memo(({ isLoggedIn, event, hasParticipated, setHasParticipated }: EventStatusProps) => {
+    const { setIsLoginOpen } = useSubComponents();
     const { joinEvent, loading } = useEventParticipation(event._id ?? '', setHasParticipated);
     const handleLoginClick = useCallback(() => {
         setIsLoginOpen(prev => !prev);
     }, [setIsLoginOpen]);
 
-    if (!event?.dateOfEvent || isNaN(Date.parse(event.dateOfEvent))) {
+    const startDate = useMemo(() => {
+        if (!event?.dateOfEvent || isNaN(Date.parse(event.dateOfEvent))) {
+            return null;
+        }
+        return new Date(event.dateOfEvent);
+    }, [event.dateOfEvent]);
+
+    if (!startDate) {
         return (
             <div className={styles.error} role="alert">
                 <p>Invalid event date format</p>
@@ -40,18 +47,16 @@ const EventStatus = memo(({ isLoggedIn, event, user, hasParticipated, setHasPart
         );
     }
 
-    const startDate = useMemo(() => new Date(event.dateOfEvent ?? ''), [event.dateOfEvent]);
-
     if (isPast(startDate)) {
         return (
             <section className={styles.pastEvent} aria-label="Event status">
                 <h3>Event has ended</h3>
                 <p>View more updates and events in {event.createdBy?.name}&apos;s portal</p>
                 <CTA
-                    label={`${event.createdBy?.name}'s Portal`}
+                    text={`${event.createdBy?.name}'s Portal`}
                     href={`/users/${event.createdBy?._id}?fetchParam1=${event.createdBy?.name}&fetchParam2=${event.createdBy?.avatar?.url}`}
                     backgroundColor="var(--title-color)"
-                    buttonTextColor="var(--cream-color)"
+                    textColor="var(--cream-color)"
                 />
             </section>
         );

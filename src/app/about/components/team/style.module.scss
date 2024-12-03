@@ -1,0 +1,191 @@
+@import "../../../../styles/vairables";
+
+.team {
+    @include flex(column, flex-start, flex-start);
+    gap: $spacing-lg;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-top: 15vh;
+
+    @include respond-to(laptop) {
+        padding-top: 5vh;
+    }
+
+    &__container {
+        @include twoColumnGrid;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        @include respond-to(medium-tablet) {
+            @include flexCenter(column);
+            overflow: hidden;
+        }
+
+        &__left {
+            @include flex(column, flex-start, center);
+            gap: $spacing-md;
+            width: 100%;
+            height: 100vh;
+            position: sticky;
+            top: 5rem;
+
+            @include respond-to(laptop) {
+                position: relative;
+                top: 0;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            h3 {
+                font-size: 5vw;
+                color: $title-color;
+                font-family: $body-font;
+                transition: $animation-primary;
+                line-height: 1.15;
+
+                @include respond-to(laptop) {
+                    font-size: $bigger-font-size;
+                    padding: $spacing-xs;
+                }
+
+                @include respond-to(medium-tablet) {
+                    font-size: $biggest-font-size;
+                }
+
+                span {
+                    color: $accent-color;
+                }
+            }
+        }
+
+        &__right__content {
+            @include twoColumnGrid;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: $spacing-xxl;
+            user-select: none;
+
+            @include respond-to(medium-tablet) {
+                @include flexCenter(row);
+                gap: $spacing-sm;
+            }
+
+            &_drag {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+                overflow-y: hidden;
+                padding: $spacing-sm;
+
+                &_image {
+                    object-position: center;
+                    margin-right: $spacing-sm;
+                }
+            }
+
+
+            &__column {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                gap: 4vh;
+
+                @include respond-to(laptop) {
+                    gap: $spacing-sm;
+                }
+            }
+
+            &__item {
+                @include flex(column, flex-start, flex-start);
+                width: 100%;
+                height: 100%;
+
+                @include respond-to(laptop) {
+                    object-position: start;
+                    margin-right: $spacing-sm;
+                    width: 240px;
+                    overflow: hidden;
+
+                }
+
+                &_upper {
+                    position: relative;
+
+                    img {
+                        width: 20vw;
+                        height: 30vh;
+                        object-fit: cover;
+                        border-radius: $spacing-lg;
+
+                        @include respond-to(laptop) {
+                            width: 50vw;
+                            height: 30vh;
+                        }
+                    }
+
+                    &_content {
+                        @include position(absolute, 2%, 2%, null, null);
+                        @include flex(column, space-between, flex-start);
+                        width: 100%;
+                        height: 100%;
+
+                        .svgs {
+                            @include position(absolute, 1.5%, 1.5%, null, null);
+                            display: flex;
+                            gap: $spacing-xs;
+
+                            svg {
+                                font-size: $semi-big-font-size;
+                                color: $container-color;
+                                transition: $animation-primary;
+                                cursor: pointer;
+                            }
+                        }
+
+                        .brief {
+                            @include position(absolute, 8%, null, null, 3%);
+                            padding: $spacing-sm;
+                            line-height: 1.2;
+
+                            p {
+                                color: $container-color;
+                                font-family: $body-font;
+                                font-size: $small-font-size;
+
+                                @include respond-to(mobile) {
+                                    font-size: $small-font-size;
+                                    line-height: 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__details {
+                    h4 {
+                        font-size: $semi-big-font-size;
+                        color: $title-color;
+                        font-family: $title-font;
+                        transition: $animation-primary;
+                    }
+
+                    p {
+                        font-size: $normal-font-size;
+                        color: $text-color;
+                        font-family: $body-font;
+                        transition: $animation-primary;
+                    }
+
+                }
+            }
+
+        }
+    }
+}

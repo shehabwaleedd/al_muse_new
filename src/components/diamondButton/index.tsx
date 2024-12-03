@@ -9,7 +9,7 @@ interface DiamondButtonProps {
     fillColor?: string;
     iconColor?: string;
     children?: React.ReactNode;
-    size?: 'small' | 'medium' | 'large' | 'xlarge';
+    size?: 'small' | 'medium' | 'large' | 'semilarge' | 'xlarge';
     disabled?: boolean;
 }
 
@@ -27,6 +27,7 @@ const DiamondButton = ({
         small: { button: '2rem', icon: '1rem' },
         medium: { button: '3rem', icon: '1.25rem' },
         large: { button: '4rem', icon: '1.5rem' },
+        semilarge: { button: '5rem', icon: '1.75rem' },
         xlarge: { button: '6rem', icon: '2.5rem' }
     };
 

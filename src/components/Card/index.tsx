@@ -8,6 +8,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { isPast } from 'date-fns';
 import { CardProps } from '@/types/common';
 import Link from 'next/link';
+import DiamondButton from '../diamondButton';
 
 const Card = ({ i, title, description, mainImg, city, category, slug, dateOfEvent, createdBy }: CardProps) => {
 
@@ -23,6 +24,11 @@ const Card = ({ i, title, description, mainImg, city, category, slug, dateOfEven
     formattedDate = 'Invalid date';
   }
 
+
+  const handleRSVP = () => {
+    return
+  }
+
   return (
     <Link href={`/community/${slug}`} key={i} className={styles.cardContainer}>
       <motion.div className={styles.card} >
@@ -34,13 +40,20 @@ const Card = ({ i, title, description, mainImg, city, category, slug, dateOfEven
 
             <div className={styles.team__container__right__content__column__item__overlay}>
               {isPast(startDate) ? (
-                <div className={styles.team__container__right__content__column__item__overlay__past}>
-                  <span>Finished</span>
-                </div>
+                // <div className={styles.team__container__right__content__column__item__overlay__past}>
+                //   <span>Finished</span>
+                // </div>
+                <DiamondButton onClick={handleRSVP} ariaLabel="RSVP Now" size='semilarge' fillColor='var(--accent-color)' iconColor='#000000' >
+                  <p>
+                    finished
+                  </p>
+                </DiamondButton>
               ) : (
-                <div className={styles.team__container__right__content__column__item__overlay__upcoming}>
-                  <span>Upcoming</span>
-                </div>
+                <DiamondButton onClick={handleRSVP} ariaLabel="RSVP Now" size='semilarge' fillColor='var(--second-accent-color)' iconColor='#ffffff' >
+                  <p>
+                    upcoming
+                  </p>
+                </DiamondButton>
               )}
             </div>
           </motion.div>

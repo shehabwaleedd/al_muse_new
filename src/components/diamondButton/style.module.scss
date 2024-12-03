@@ -38,4 +38,9 @@
     font-family: $title-font;
     font-size: $normal-font-size;
     z-index: 1;
+
+    p {
+        font-size: 0.6rem;
+        font-family: $body-font;
+    }
 }

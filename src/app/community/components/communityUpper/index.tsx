@@ -14,8 +14,11 @@ const CommunityUpper = () => {
     <section className={styles.communityUpper}>
       <Image src="/assets/New/IMG_0136.webp" alt="community" fill />
       <div className={styles.communityUpper__content}>
-        <Link href="/register">Join Community</Link>
+        <Link href="/register">
+          <Image src="/assets/svg/joinCommunity.svg" alt="join community" width={300} height={300} />
+        </Link>
       </div>
+
     </section>
   )
 }

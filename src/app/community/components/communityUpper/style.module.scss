@@ -4,7 +4,6 @@
     position: relative;
     width: 100%;
     height: 75vh;
-    overflow: hidden;
 
     img {
         object-fit: cover;
@@ -13,13 +12,10 @@
     }
 
     &__content {
-        @include position(absolute, 80%, null, null, 50%);
+        @include position(absolute, 100%, null, null, 50%);
         transform: translate(-50%, -50%);
+        z-index: 9999;
 
-        a {
-            @include mainButton($second-accent-color, $title-color);
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        }
     }
 
 }
