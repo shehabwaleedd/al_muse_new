@@ -1,7 +1,7 @@
 'use client'
 import React, { useRef } from 'react'
 import Border from '@/constant/border';
-import { TransitionLink } from '@/components/transitionLink';
+import CTAButton from '@/components/ctaButton';
 import Image from 'next/image';
 import DynamicCard from '@/components/twoGrids';
 import { EventType } from '@/types/common';
@@ -41,7 +41,7 @@ const EventsClient = ({ events }: { events: EventType[] }) => {
             <p>{stripHtmlTagsAndSlice(event.description ?? '')}</p>
             <div className={styles.btnMobile}>
                 <Image src={event.mainImg?.url ?? ''} alt={event.title ?? ''} width={500} height={500} loading='lazy' />
-                <TransitionLink href={`/community/${event.slug}`} label="Read More" />
+                <CTAButton text="Read More" href={`/community/${event.slug}`} backgroundColor="var(--accent-color)" textColor="var(--title-color)" />
             </div>
         </>
     );

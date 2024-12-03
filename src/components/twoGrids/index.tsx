@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TransitionLink } from '@/components/transitionLink';
+import CTAButton from '@/components/ctaButton';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -134,7 +134,7 @@ const DynamicCard = <T,>({ items, truncateTitleLength = 15, onItemChange, render
                             <li key={`item_${i}`}>{truncateTitle(getTitle(item), truncateTitleLength)}</li>
                         ))}
                     </ul>
-                    <TransitionLink href={getLink(items[currentItemIndex])} label="Participate Now" />
+                    <CTAButton text="Participate Now" href={getLink(items[currentItemIndex])} backgroundColor="var(--accent-color)" textColor="var(--title-color)" />
                 </div>
             </div>
             <div className={styles.right} ref={rightRef}>
