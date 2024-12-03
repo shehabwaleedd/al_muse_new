@@ -66,6 +66,7 @@
     "lowlight": "^3.1.0",
     "lucide-react": "^0.460.0",
     "next": "15.0.3",
+    "plaiceholder": "^3.0.0",
     "react": "^18.2.0",
     "react-country-region-selector": "^3.7.0",
     "react-day-picker": "^8.10.1",
