@@ -19,7 +19,6 @@ export interface Img {
 
 
 export interface TourType {
-    data: any;
     mainImg: MainImg;
     location: Location;
     mapDetails: string;
@@ -33,7 +32,7 @@ export interface TourType {
     description: string;
     images: Img[];
     options: {
-        price: any; name: string; _id: string
+        price: number; name: string; _id: string
     }[];
     isRepeated: boolean;
     repeatTime: string[];

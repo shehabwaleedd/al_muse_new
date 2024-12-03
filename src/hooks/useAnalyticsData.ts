@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import { useAuth } from '@/context/AuthContext';
 import type { User, EventType } from '@/types/common';
@@ -17,6 +17,10 @@ interface ApiResponse<T> {
     };
 }
 
+interface ApiErrorResponse {
+    message: string;
+}
+
 export const useAnalyticsData = () => {
     const { user: currentUser, handleLogout } = useAuth();
     const [state, setState] = useState<AnalyticsDataState>({
@@ -26,7 +30,7 @@ export const useAnalyticsData = () => {
         error: null,
     });
 
-    const handleError = useCallback((error: any) => {
+    const handleError = useCallback((error: Error | AxiosError<ApiErrorResponse>) => {
         console.error('Analytics fetch error:', error);
 
         if (axios.isAxiosError(error)) {
@@ -72,10 +76,10 @@ export const useAnalyticsData = () => {
         setState(prev => ({ ...prev, isLoading: true, error: null }));
 
         try {
-            let responses: {
-                users?: User[];
-                events?: EventType[];
-            } = {};
+            const responses = {
+                users: [] as User[],
+                events: [] as EventType[]
+            };
 
             const requests = [];
 
@@ -113,14 +117,14 @@ export const useAnalyticsData = () => {
             await Promise.all(requests);
 
             setState({
-                users: responses.users || [],
-                events: responses.events || [],
+                users: responses.users,
+                events: responses.events,
                 isLoading: false,
                 error: null
             });
 
         } catch (error) {
-            handleError(error);
+            handleError(error as Error | AxiosError<ApiErrorResponse>);
         }
     }, [currentUser, handleError, handleLogout]);
 

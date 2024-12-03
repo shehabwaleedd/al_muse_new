@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'; 
+import { useState, useEffect, useCallback } from 'react'; 
 import axios from 'axios';
 import { User } from '@/types/common';
 export const useUserById = (id: string) => {
