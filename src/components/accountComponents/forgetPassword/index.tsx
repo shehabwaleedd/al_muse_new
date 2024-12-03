@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import global from "@/app/page.module.scss";
 import SubComponentSide from '@/common/SubComponentSide';
 import { toast } from 'sonner';
@@ -95,9 +95,13 @@ const ForgotPassword: React.FC = () => {
                         setIsLoginOpen(true);
                         break;
                 }
-            } catch (error: any) {
-                setErrorFromDataBase(error.response?.data?.err || "An unexpected error occurred");
-                toast.error(error.response?.data?.err || "An unexpected error occurred");
+            } catch (error: unknown) {
+                const axiosError = error as AxiosError;
+                const errorMessage = typeof axiosError.response?.data === 'string' 
+                    ? axiosError.response.data 
+                    : "An unexpected error occurred";
+                setErrorFromDataBase(errorMessage);
+                toast.error(errorMessage);
             } finally {
                 setIsLoading(false);
             }

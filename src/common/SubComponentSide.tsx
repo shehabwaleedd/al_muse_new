@@ -1,4 +1,3 @@
-// hoc/withCommonStyles.tsx
 'use client';
 import React from 'react';
 import { motion, VariantLabels, AnimationControls, TargetAndTransition } from 'framer-motion';
@@ -12,7 +11,7 @@ interface SubComponentSideProps {
 }
 
 const SubComponentSide = <P extends object>(Component: React.ComponentType<P>) => {
-    const WrappedComponent: React.FC<P & SubComponentSideProps> = ({ handleClose, animate, children, ...props }) => {
+    const WrappedComponent: React.FC<P & SubComponentSideProps> = ({ handleClose, children, ...props }) => {
         return (
             <motion.section
                 className={global.subComponent_container}

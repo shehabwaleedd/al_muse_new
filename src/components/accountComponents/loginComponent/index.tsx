@@ -1,12 +1,10 @@
-// components/LoginComponent.tsx
 'use client';
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useAuth } from '@/context/AuthContext';
 import { useSubComponents } from '@/context/SubComponentsContext';
-import Link from 'next/link';
 import global from "@/app/page.module.scss";
 import SubComponentSide from '@/common/SubComponentSide';
 
@@ -41,8 +39,12 @@ const LoginComponent: React.FC = () => {
                 } else {
                     setErrorFromDataBase(response.data.err || 'An unexpected error occurred.');
                 }
-            } catch (error: any) {
-                setErrorFromDataBase(error.response.data.err || "An unexpected error occurred.");
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    setErrorFromDataBase(error.response?.data?.err || "An unexpected error occurred.");
+                } else {
+                    setErrorFromDataBase("An unexpected error occurred.");
+                }
             } finally {
                 setIsLoading(false);
             }

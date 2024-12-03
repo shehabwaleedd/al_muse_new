@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from "./../register/page.module.scss";
@@ -10,9 +10,17 @@ import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import global from "@/app/page.module.scss"
+
+
+interface ErrorResponse {
+    err?: string;
+    message?: string;
+    errors?: Array<{ message: string }>;
+}
+
 const Page = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const { handleLoginSuccess, isLoggedIn } = useAuth();
+    const { handleLoginSuccess } = useAuth();
     const router = useRouter();
 
     const validationSchema = yup.object({
@@ -35,17 +43,25 @@ const Page = () => {
                     toast.success('Login successful');
                     toast.success("Redirecting to dashboard...");
                     handleLoginSuccess(response.data.token, response.data.data);
-                    router.push('/account'); 
+                    router.push('/account');
                 }
-            } catch (err: any) {
-                let errorMessage = 'An unexpected error occurred during login.'; // Default error message
-                if (err.response && err.response.data) {
-                    if (typeof err.response.data === 'object' && 'err' in err.response.data) {
-                        errorMessage = err.response.data.err;
-                    } else if (Array.isArray(err.response.data)) {
-                        errorMessage = (err.response.data as any[]).map(e => e.message || e).join('\n');
+            } catch (err) {
+                let errorMessage = 'An unexpected error occurred during login.';
+
+                if (axios.isAxiosError(err)) {
+                    const error = err as AxiosError<ErrorResponse>;
+                    if (error.response?.data) {
+                        const errorData = error.response.data;
+                        if (errorData.err) {
+                            errorMessage = errorData.err;
+                        } else if (errorData.message) {
+                            errorMessage = errorData.message;
+                        } else if (errorData.errors) {
+                            errorMessage = errorData.errors.map(e => e.message).join('\n');
+                        }
                     }
                 }
+
                 toast.error(errorMessage);
             } finally {
                 setIsLoading(false);
@@ -100,7 +116,7 @@ const Page = () => {
                     </form>
                 </section>
             </section>
-            <Image src="/assets/backgrounds/1.webp" height={1000} width={1920} alt='register background' className={styles.mainImg}/>
+            <Image src="/assets/backgrounds/1.webp" height={1000} width={1920} alt='register background' className={styles.mainImg} />
         </main>
     );
 }

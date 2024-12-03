@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 
 const CreateTestimonials = () => {
     const [errorFromDataBase, setErrorFromDataBase] = useState('');
-    const [rating, setRating] = useState(0);
     const [avatar, setAvatar] = useState<File | null>(null);
     const router = useRouter();
     const formik = useFormik({

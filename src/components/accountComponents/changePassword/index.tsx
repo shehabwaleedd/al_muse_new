@@ -1,26 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import axios from 'axios'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -70,10 +56,9 @@ export default function ChangePasswordForm() {
                 toast.success('Password changed successfully')
                 form.reset()
             }
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.err || 'Error changing password. Please try again.'
-            toast.error(errorMessage)
-            form.setError('root', { message: errorMessage })
+        } catch {
+            toast.error('Error changing password. Please try again.')
+            form.setError('root', { message: 'Error changing password. Please try again.' })
         }
     }
 

@@ -1,11 +1,16 @@
 'use client'
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import styles from "./style.module.scss"
 import { words } from "./data";
 import { useAnimation } from '@/context/AnimationContext';
 
-const introAnimation = (wordGroupsRef: React.RefObject<any>) => {
+
+type WordGroupRef = HTMLDivElement;
+type ProgressRef = HTMLDivElement;
+type LoaderRef = HTMLDivElement;
+
+const introAnimation = (wordGroupsRef: React.RefObject<WordGroupRef>) => {
     const tl = gsap.timeline();
     tl.to(wordGroupsRef.current, {
         yPercent: -80,
@@ -16,7 +21,11 @@ const introAnimation = (wordGroupsRef: React.RefObject<any>) => {
     return tl;
 };
 
-const collapseWords = (wordGroupsRef: React.RefObject<any>, openingRef: React.RefObject<any>, setHasAnimationShown: React.Dispatch<React.SetStateAction<boolean>>) => {
+const collapseWords = (
+    wordGroupsRef: React.RefObject<LoaderRef>,
+    openingRef: React.RefObject<HTMLDivElement>,
+    setHasAnimationShown: React.Dispatch<React.SetStateAction<boolean>>
+) => {
     const tl = gsap.timeline();
     tl.to(wordGroupsRef.current, {
         "clip-path": "polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%)",
@@ -30,17 +39,19 @@ const collapseWords = (wordGroupsRef: React.RefObject<any>, openingRef: React.Re
                     sessionStorage.setItem("hasAnimationShown", "true");
                     setHasAnimationShown(true);
                 }
-            })
+            });
         },
     });
 
     return tl;
 };
 
-const progressAnimation = (progressRef: React.RefObject<any>, progressNumberRef: React.RefObject<any>) => {
+const progressAnimation = (
+    progressRef: React.RefObject<ProgressRef>,
+    progressNumberRef: React.RefObject<HTMLDivElement>
+) => {
     const tl = gsap.timeline();
 
-    // Animation for the progress bar scaling
     tl.to(progressRef.current, {
         scaleX: 1,
         opacity: 1,
@@ -54,7 +65,6 @@ const progressAnimation = (progressRef: React.RefObject<any>, progressNumberRef:
         },
     });
 
-    // Animation for moving the progress number
     tl.to(progressNumberRef.current, {
         x: "100vw",
         duration: 8,
@@ -67,7 +77,6 @@ const progressAnimation = (progressRef: React.RefObject<any>, progressNumberRef:
         },
     }, "<");
 
-    // Incrementing the progress counter to 100% over time
     tl.fromTo(progressNumberRef.current, {
         textContent: "0",
     }, {
@@ -76,7 +85,6 @@ const progressAnimation = (progressRef: React.RefObject<any>, progressNumberRef:
         ease: "none",
         snap: { textContent: 1 },
         onUpdate: function () {
-            // Update text content to include a percentage sign
             if (progressNumberRef.current) {
                 progressNumberRef.current.textContent = `${this.targets()[0].textContent}%`;
             }
@@ -86,48 +94,45 @@ const progressAnimation = (progressRef: React.RefObject<any>, progressNumberRef:
     return tl;
 };
 
-
-const Opening = () => {
-    const loaderRef = useRef(null);
-    const progressRef = useRef(null);
-    const progressNumberRef = useRef(null);
-    const wordGroupsRef = useRef(null);
-    const openingRef = useRef(null);
+const Opening: React.FC = () => {
+    const loaderRef = useRef<LoaderRef>(null);
+    const progressRef = useRef<ProgressRef>(null);
+    const progressNumberRef = useRef<HTMLDivElement>(null);
+    const wordGroupsRef = useRef<WordGroupRef>(null);
+    const openingRef = useRef<HTMLDivElement>(null);
     const { renderingOpening, setHasAnimationShown, timeline } = useAnimation();
+
     useEffect(() => {
-        timeline &&
+        if (timeline) {
             timeline
                 .add(introAnimation(wordGroupsRef))
                 .add(progressAnimation(progressRef, progressNumberRef), 0)
                 .add(collapseWords(loaderRef, openingRef, setHasAnimationShown), "-=1");
+        }
     }, [setHasAnimationShown, timeline]);
 
+    if (!renderingOpening) {
+        return null;
+    }
+
     return (
-        <>
-            {renderingOpening ? (
-                <div className={styles.loader__wrapper} ref={openingRef}>
-                    <div className={styles.loader__progressWrapper}>
-                        <div className={styles.loader__progress} ref={progressRef}></div>
-                    </div>
-                    <div className={styles.loader} ref={loaderRef}>
-                        <div className={styles.loader__words}>
-                            <div className={styles.loader__overlay}></div>
-                            <div ref={wordGroupsRef} className={styles.loader__wordsGroup}>
-                                {words.map((word, index) => {
-                                    return (
-                                        <span key={index} className={styles.loader__word}>
-                                            {word}
-                                        </span>
-                                    );
-                                })}
-                            </div>
-                        </div>
+        <div className={styles.loader__wrapper} ref={openingRef}>
+            <div className={styles.loader__progressWrapper}>
+                <div className={styles.loader__progress} ref={progressRef}></div>
+            </div>
+            <div className={styles.loader} ref={loaderRef}>
+                <div className={styles.loader__words}>
+                    <div className={styles.loader__overlay}></div>
+                    <div ref={wordGroupsRef} className={styles.loader__wordsGroup}>
+                        {words.map((word, index) => (
+                            <span key={index} className={styles.loader__word}>
+                                {word}
+                            </span>
+                        ))}
                     </div>
                 </div>
-            ) : (
-                <></>
-            )}
-        </>
+            </div>
+        </div>
     );
 };
 

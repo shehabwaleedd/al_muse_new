@@ -2,7 +2,9 @@ import React from "react";
 import { Field, useFormikContext } from "formik";
 import styles from '../unified.module.scss';
 import { format } from 'date-fns';
-import { toast } from "sonner";
+
+type FieldValue = string | number | File | File[] | null;
+
 
 interface CustomFieldProps {
     name: string;
@@ -10,7 +12,7 @@ interface CustomFieldProps {
     fieldType?: "input" | "select" | "date" | "file" | "textarea";
     options?: Array<{ value: string; label: string }>;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    setFieldValue?: (field: string, value: any) => void;
+    setFieldValue?: (field: string, value: FieldValue) => void;
 }
 
 const CustomField: React.FC<CustomFieldProps> = ({

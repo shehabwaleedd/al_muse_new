@@ -4,12 +4,11 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import Tempus from '@studio-freight/tempus';
 import Lenis from '@studio-freight/lenis';
 import { usePathname } from 'next/navigation';
-import { useSubComponents } from '@/context/SubComponentsContext';
+
 
 const SmoothScroller = () => {
     const lenisRef = useRef<Lenis | null>(null);
     const pathname = usePathname();
-    const { isAnyModalOpen } = useSubComponents();
 
 
     useEffect(() => {

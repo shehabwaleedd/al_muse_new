@@ -37,6 +37,9 @@ interface Image {
     file: File | string;
 }
 
+interface ImageUrl {
+    url: string;
+}
 
 
 interface ImageUploaderProps {
@@ -148,13 +151,13 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
     const [seoImage, setSeoImage] = useState<File | string | null>(null);
     const [uploadedImages, setUploadedImages] = useState<Image[]>([]);
     const [date, setDate] = useState<Date | null>(null);
-    const { event, loading, error } = useEventBySlug(slug);
+    const { event, loading } = useEventBySlug(slug);
 
     useEffect(() => {
         if (event) {
             setMainImg(event.mainImg?.url || null);
             setSeoImage(event.seoImage?.url || null);
-            setUploadedImages(event.images ? event.images.map((img: any) => ({
+            setUploadedImages(event.images ? event.images.map((img: ImageUrl) => ({
                 file: img.url,
                 url: img.url
             })) : []);
@@ -291,7 +294,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
                             <Form className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="title">Event's Title</Label>
+                                        <Label htmlFor="title">Event&apos;s Title</Label>
                                         <Input
                                             id="title"
                                             name="title"
@@ -304,7 +307,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
                                         )}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="dateOfEvent">Event's Date</Label>
+                                        <Label htmlFor="dateOfEvent">Event&apos;s Date</Label>
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <Button
@@ -383,7 +386,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="timeOfEvent.from">Event's Start Time</Label>
+                                        <Label htmlFor="timeOfEvent.from">Event&apos;s Start Time</Label>
                                         <Select
                                             name="timeOfEvent.from"
                                             onValueChange={(value) => {
@@ -408,7 +411,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
                                         )}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="timeOfEvent.to">Event's End Time</Label>
+                                        <Label htmlFor="timeOfEvent.to">Event&apos;s End Time</Label>
                                         <Select
                                             name="timeOfEvent.to"
                                             onValueChange={(value) => setFieldValue('timeOfEvent.to', value)}
@@ -456,7 +459,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
                                         )}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="category">Event's Category</Label>
+                                        <Label htmlFor="category">Event&apos;s Category</Label>
                                         <Select
                                             name="category"
                                             onValueChange={(value: Category) => setFieldValue('category', value)}
@@ -478,7 +481,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label>Event's Location</Label>
+                                    <Label>Event&apos;s Location</Label>
                                     <RadioGroup
                                         value={values.location}
                                         onValueChange={(value: 'online' | 'offline') => {
@@ -515,7 +518,7 @@ const EditEvent: React.FC<EditEventProps> = ({ params: { slug } }) => {
 
                                 {values.location === 'offline' && (
                                     <div className="space-y-2">
-                                        <Label htmlFor="locationDetails">Event's Location Details</Label>
+                                        <Label htmlFor="locationDetails">Event&apos;s Location Details</Label>
                                         <Textarea
                                             id="locationDetails"
                                             name="locationDetails"

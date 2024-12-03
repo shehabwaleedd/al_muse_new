@@ -35,7 +35,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 interface PersonalInfoProps {
     user: User | null;
-    onUpdate: (data: any) => void;
+    onUpdate: (data: FormValues) => void;
 }
 
 const InfoItem = ({

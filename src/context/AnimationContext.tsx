@@ -1,14 +1,15 @@
 'use client'
 
-import React, { createContext, useContext, useState, ReactNode, useEffect, useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+
+
 interface AnimationContextType {
     hasAnimationShown: boolean;
     setHasAnimationShown: React.Dispatch<React.SetStateAction<boolean>>;
     renderingOpening: boolean;
     setRenderingOpening: React.Dispatch<React.SetStateAction<boolean>>;
-    timeline: any;
-    setTimeline: React.Dispatch<React.SetStateAction<any>>;
+    timeline: GSAPTimeline | null;
+    setTimeline: React.Dispatch<React.SetStateAction<GSAPTimeline | null>>;
 }
 
 const AnimationContext = createContext<AnimationContextType | undefined>(undefined);
@@ -28,7 +29,7 @@ interface AnimationProviderProps {
 export const AnimationProvider: React.FC<AnimationProviderProps> = ({ children }) => {
     const [hasAnimationShown, setHasAnimationShown] = useState<boolean>(false);
     const [renderingOpening, setRenderingOpening] = useState<boolean>(false);
-    const [timeline, setTimeline] = useState<any>(null);
+    const [timeline, setTimeline] = useState<GSAPTimeline | null>(null);
 
     useEffect(() => {
         if (!hasAnimationShown && !sessionStorage.getItem("hasAnimationShown")) {
@@ -36,13 +37,6 @@ export const AnimationProvider: React.FC<AnimationProviderProps> = ({ children }
         }
     }, [hasAnimationShown])
 
-    useLayoutEffect(() => {
-        const context = gsap.context(() => {
-            const tl = gsap.timeline();
-
-            setTimeline(tl);
-        });
-    }, []);
 
 
     return (

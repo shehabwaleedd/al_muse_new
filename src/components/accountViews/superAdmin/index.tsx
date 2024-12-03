@@ -1,6 +1,7 @@
 import React from 'react'
 import * as XLSX from 'xlsx';
 import axios from 'axios';
+import { User } from '@/types/common';
 
 const SuperAdminView = ({ handleOpen }: { handleOpen: (value: string) => () => void }) => {
 
@@ -25,7 +26,7 @@ const SuperAdminView = ({ handleOpen }: { handleOpen: (value: string) => () => v
                 headers: { token: localStorage.getItem('token') },
             });
 
-            const usersData = response.data.data.result.map(({ password, rePassword, __v, ...user }: { password: string, rePassword: string, __v: any, user: any }) => user);
+            const usersData = response.data.data.result.map(({ ...user }: { password: string, rePassword: string, __v: number, user: User }) => user);
             const worksheet = XLSX.utils.json_to_sheet(usersData);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, 'Users');

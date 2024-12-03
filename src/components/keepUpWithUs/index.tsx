@@ -42,14 +42,14 @@ const KeepUpWithUs: React.FC<KeepUpWithUsProps> = ({
                 }
 
                 const data = await response.json();
-                const formattedPosts: InstagramPost[] = data.data.map((post: any) => ({
+                const formattedPosts: InstagramPost[] = data.data.map((post: InstagramPost) => ({
                     id: post.id,
-                    mediaUrl: post.media_url,
+                    mediaUrl: post.mediaUrl,
                     permalink: post.permalink,
                     caption: post.caption || '',
                     timestamp: new Date(post.timestamp).toLocaleDateString(),
-                    mediaType: post.media_type,
-                    thumbnailUrl: post.thumbnail_url || post.media_url
+                    mediaType: post.mediaType,
+                    thumbnailUrl: post.thumbnailUrl || post.mediaUrl
                 }));
 
                 setPosts(formattedPosts);

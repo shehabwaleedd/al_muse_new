@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export async function POST(req: NextRequest) {
     try {
@@ -15,11 +15,12 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json(response.data);
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const axiosError = error as AxiosError;
         console.error('Error occurred during registration:', error);
 
-        const errorMessage = error.response?.data?.err || 'Failed to register';
-        const statusCode = error.response?.status || 500;
+        const errorMessage = axiosError.response?.data || 'Failed to register';
+        const statusCode = axiosError.response?.status || 500;
 
         return NextResponse.json(
             { error: errorMessage },

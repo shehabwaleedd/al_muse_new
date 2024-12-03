@@ -6,7 +6,7 @@ export async function PATCH(
     { params }: { params: { id: string } }
 ) {
     try {
-        const headersList = headers();
+        const headersList = await headers();
         const token = headersList.get('token');
         const { role } = await request.json();
 
@@ -30,6 +30,7 @@ export async function PATCH(
 
         return NextResponse.json(data);
     } catch (error) {
+        console.error(error);
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 }

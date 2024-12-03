@@ -1,6 +1,4 @@
-// app/api/login/route.js
-
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export async function POST(req: Request) {
     try {
@@ -10,10 +8,11 @@ export async function POST(req: Request) {
             status: response.status,
             headers: { 'Content-Type': 'application/json' },
         });
-    } catch (error: any) {
-        if (error.response) {
-            return new Response(JSON.stringify(error.response.data), {
-                status: error.response.status,
+    } catch (error: unknown) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+            return new Response(JSON.stringify(axiosError.response.data), {
+                status: axiosError.response.status,
                 headers: { 'Content-Type': 'application/json' },
             });
         } else {

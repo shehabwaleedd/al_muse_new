@@ -10,6 +10,12 @@ import global from "@/app/page.module.scss";
 import SubComponentSide from '@/common/SubComponentSide';
 import styles from './styles.module.scss';
 
+
+interface ErrorResponse {
+    err: string;
+    message?: string;
+}
+
 const RegisterComponent: React.FC = () => {
     const [errorFromDataBase, setErrorFromDataBase] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -70,15 +76,22 @@ const RegisterComponent: React.FC = () => {
                 } else {
                     setErrorFromDataBase(response.data.err || 'An unexpected error occurred.');
                 }
-            } catch (error: any) {
-                if (error.response) {
-                    setErrorFromDataBase(error.response.data.err || "Server error occurred.");
-                } else if (error.request) {
-                    setErrorFromDataBase("No response from server. Please try again later.");
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    if (error.response) {
+                        const errorData = error.response.data as ErrorResponse;
+                        setErrorFromDataBase(errorData.err || "Server error occurred.");
+                    } else if (error.request) {
+                        setErrorFromDataBase("No response from server. Please try again later.");
+                    } else {
+                        setErrorFromDataBase("An error occurred while sending the request.");
+                    }
+                    console.error('Registration error:', error.message);
                 } else {
-                    setErrorFromDataBase("An error occurred while sending the request.");
+                    // Handle non-Axios errors
+                    setErrorFromDataBase("An unexpected error occurred.");
+                    console.error('Non-Axios error:', error);
                 }
-                console.error('Registration error:', error);
             } finally {
                 setIsLoading(false);
             }

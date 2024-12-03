@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { TrendingUp, TrendingDown, Users, Calendar, Target, Clock, MapPin, AlertCircle } from 'lucide-react';
+import { TrendingUp, Users, Calendar, Target, Clock, MapPin, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 

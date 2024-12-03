@@ -19,7 +19,7 @@ import CreateEvent from './events/createEvent/page'
 import AnalyticsDashboard from '@/components/accountComponents/analytics'
 import { User } from '@/types/common'
 const Account = () => {
-    const { user, loading, error, setUser, handleLogout, isLoggedIn } = useAuth();
+    const { user, setUser } = useAuth();
     const [activeSection, setActiveSection] = useState<string>('personalInfo');
 
     const handleOpen = (sectionName: string) => () => {

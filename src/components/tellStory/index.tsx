@@ -1,10 +1,8 @@
-// components/TellUsYourStory.tsx
 'use client';
 import React from 'react';
 import { FormikHelpers, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import emailjs from '@emailjs/browser';
-import { useSubComponents } from '@/context/SubComponentsContext';
 import global from "@/app/page.module.scss";
 import SubComponentSide from '@/common/SubComponentSide';
 
@@ -31,7 +29,6 @@ const genderOptions = [
 ];
 
 const TellUsYourStory: React.FC = () => {
-    const { handleTellUsYourStory } = useSubComponents();
 
     const initialValues: FormValuesType = {
         name: '',

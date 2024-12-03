@@ -28,8 +28,10 @@ interface ActionConfig {
     successMessage: string;
     errorMessage: string;
     confirmMessage?: string | ((currentStatus: string) => string) | ((isDisplayed: boolean) => string);
-    getPayload?: (currentState: any) => any;
+    getPayload?: (currentState: boolean | string) => FormData | { status: string };
 }
+
+
 const ACTION_CONFIG: Record<ActionType, ActionConfig> = {
     delete: {
         message: 'Deleting event...',
@@ -117,7 +119,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({
 
 interface EventCardProps {
     event: EventType;
-    onAction: (action: ActionType, data?: any) => Promise<void>;
+    onAction: (action: ActionType, data?: { status?: string; isDisplayed?: boolean }) => Promise<void>;
     loading: Record<ActionType, boolean>;
     userRole: UserRole;
 }
@@ -257,7 +259,11 @@ const DashboardEvents: React.FC<DashboardEventsProps> = ({
 
     const [actionLoading, setActionLoading] = useState<Record<string, Record<ActionType, boolean>>>({});
 
-    const handleAction = useCallback(async (eventId: string, action: ActionType, data?: any) => {
+    const handleAction = useCallback(async (
+        eventId: string, 
+        action: ActionType, 
+        data?: { status?: string; isDisplayed?: boolean }
+    ) => {
         const config = ACTION_CONFIG[action];
 
         setActionLoading(prev => ({
@@ -267,7 +273,7 @@ const DashboardEvents: React.FC<DashboardEventsProps> = ({
 
         try {
             const confirmMessage = typeof config.confirmMessage === 'function'
-                ? (config.confirmMessage as (value: any) => string)(data?.status || data?.isDisplayed)
+                ? (config.confirmMessage as (value: string | boolean | undefined) => string)(data?.status || data?.isDisplayed)
                 : config.confirmMessage;
 
             if (confirmMessage && !window.confirm(confirmMessage)) {

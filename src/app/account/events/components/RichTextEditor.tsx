@@ -37,13 +37,6 @@ import {
     DropdownMenuTrigger,
     DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import {
@@ -51,18 +44,12 @@ import {
     Italic,
     List,
     ListOrdered,
-    Quote,
     Heading1,
-    Heading2,
-    Heading3,
-    Undo,
-    Redo,
     AlignLeft,
     AlignCenter,
     AlignRight,
     AlignJustify,
     Underline as UnderlineIcon,
-    Highlighter,
     Link as LinkIcon,
     Link2Off,
     Superscript as SuperscriptIcon,
@@ -75,9 +62,28 @@ import {
     CheckSquare,
     Palette,
     FileCode,
-    Settings2,
+    Redo,
+    Undo,
 } from "lucide-react"
 
+// Constants
+const TEXT_COLORS = [
+    { name: 'Default', value: 'inherit' },
+    { name: 'Primary', value: 'rgb(var(--primary))' },
+    { name: 'Secondary', value: 'rgb(var(--secondary))' },
+    { name: 'Red', value: '#ef4444' },
+    { name: 'Green', value: '#22c55e' },
+    { name: 'Blue', value: '#3b82f6' },
+] as const
+
+const HIGHLIGHT_COLORS = [
+    { name: 'Yellow', value: '#fef08a' },
+    { name: 'Lime', value: '#d9f99d' },
+    { name: 'Pink', value: '#fbcfe8' },
+    { name: 'Blue', value: '#bae6fd' },
+] as const
+
+// Types
 interface EditorProps {
     value: string
     onChange: (value: string) => void
@@ -89,34 +95,244 @@ interface EditorProps {
     className?: string
 }
 
-const FONT_FAMILIES = [
-    { name: 'Default', value: 'Inter' },
-    { name: 'Serif', value: 'Georgia' },
-    { name: 'Monospace', value: 'JetBrains Mono' },
-    { name: 'Comic Sans', value: 'Comic Sans MS' },
-    { name: 'Times New Roman', value: 'Times New Roman' },
-    { name: 'Arial', value: 'Arial' },
-]
+type EditorWithRef = Editor | null
 
-const TEXT_COLORS = [
-    { name: 'Default', value: 'inherit' },
-    { name: 'Primary', value: 'rgb(var(--primary))' },
-    { name: 'Secondary', value: 'rgb(var(--secondary))' },
-    { name: 'Red', value: '#ef4444' },
-    { name: 'Green', value: '#22c55e' },
-    { name: 'Blue', value: '#3b82f6' },
-]
-
-const HIGHLIGHT_COLORS = [
-    { name: 'Yellow', value: '#fef08a' },
-    { name: 'Lime', value: '#d9f99d' },
-    { name: 'Pink', value: '#fbcfe8' },
-    { name: 'Blue', value: '#bae6fd' },
-]
 
 const lowlight = createLowlight(common)
 
-const RichTextEditor = ({
+const TIPPY_OPTIONS = {
+    duration: 100,
+    placement: 'top' as const,
+    popperOptions: {
+        modifiers: [
+            {
+                name: 'flip',
+                options: {
+                    fallbackPlacements: ['bottom'],
+                },
+            },
+        ],
+    },
+}
+
+// Sub-components
+const HeadingSelect: React.FC<{ editor: EditorWithRef }> = React.memo(({ editor }) => {
+    if (!editor) return null
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2">
+                    <Type className="h-4 w-4" />
+                    <span>Heading</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+                <DropdownMenuLabel>Heading Level</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup
+                    value={
+                        editor.isActive('heading', { level: 1 })
+                            ? 'h1'
+                            : editor.isActive('heading', { level: 2 })
+                                ? 'h2'
+                                : editor.isActive('heading', { level: 3 })
+                                    ? 'h3'
+                                    : 'p'
+                    }
+                >
+                    <DropdownMenuRadioItem
+                        value="p"
+                        onClick={() => editor.chain().focus().setParagraph().run()}
+                    >
+                        Paragraph
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                        value="h1"
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                    >
+                        Heading 1
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                        value="h2"
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                    >
+                        Heading 2
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                        value="h3"
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                    >
+                        Heading 3
+                    </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+})
+HeadingSelect.displayName = 'HeadingSelect'
+
+const ColorSelect: React.FC<{ editor: EditorWithRef }> = React.memo(({ editor }) => {
+    if (!editor) return null
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm">
+                    <Palette className="h-4 w-4" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuLabel>Text Color</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {TEXT_COLORS.map((color) => (
+                    <DropdownMenuItem
+                        key={color.value}
+                        onClick={() => editor.chain().focus().setColor(color.value).run()}
+                    >
+                        <div className="flex items-center gap-2">
+                            <div
+                                className="h-4 w-4 rounded-full border"
+                                style={{ backgroundColor: color.value }}
+                            />
+                            <span>{color.name}</span>
+                        </div>
+                    </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>Highlight Color</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {HIGHLIGHT_COLORS.map((color) => (
+                    <DropdownMenuItem
+                        key={color.value}
+                        onClick={() =>
+                            editor.chain().focus().toggleHighlight({ color: color.value }).run()
+                        }
+                    >
+                        <div className="flex items-center gap-2">
+                            <div
+                                className="h-4 w-4 rounded-full border"
+                                style={{ backgroundColor: color.value }}
+                            />
+                            <span>{color.name}</span>
+                        </div>
+                    </DropdownMenuItem>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+})
+ColorSelect.displayName = 'ColorSelect'
+
+const FloatingMenuContent: React.FC<{
+    editor: EditorWithRef,
+    onImageAdd: () => void,
+    onTableAdd: () => void
+}> = React.memo(({ editor, onImageAdd, onTableAdd }) => {
+    if (!editor) return null
+
+    return (
+        <div className="flex items-center gap-1 p-1 border rounded-lg bg-background shadow-md">
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            >
+                <Heading1 className="h-4 w-4" />
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+            >
+                <List className="h-4 w-4" />
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().toggleTaskList().run()}
+            >
+                <CheckSquare className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={onImageAdd}>
+                <ImageIcon className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={onTableAdd}>
+                <TableIcon className="h-4 w-4" />
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+            >
+                <Code className="h-4 w-4" />
+            </Button>
+        </div>
+    )
+})
+FloatingMenuContent.displayName = 'FloatingMenuContent'
+
+const TableButtons: React.FC<{ editor: EditorWithRef }> = React.memo(({ editor }) => {
+    if (!editor?.isActive('table')) return null
+
+    return (
+        <div className="fixed bottom-4 right-4 flex items-center gap-2 p-2 border rounded-lg bg-background shadow-md">
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().addColumnBefore().run()}
+            >
+                Add Column Before
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().addColumnAfter().run()}
+            >
+                Add Column After
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().addRowBefore().run()}
+            >
+                Add Row Before
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().addRowAfter().run()}
+            >
+                Add Row After
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().deleteColumn().run()}
+            >
+                Delete Column
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().deleteRow().run()}
+            >
+                Delete Row
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => editor.chain().focus().deleteTable().run()}
+            >
+                Delete Table
+            </Button>
+        </div>
+    )
+})
+TableButtons.displayName = 'TableButtons'
+
+// Main component
+const RichTextEditor: React.FC<EditorProps> = ({
     value,
     onChange,
     placeholder = 'Write something...',
@@ -125,7 +341,7 @@ const RichTextEditor = ({
     maxLength,
     onImageUpload,
     className,
-}: EditorProps) => {
+}) => {
     const editorConfig = useMemo(() => ({
         extensions: [
             StarterKit.configure({
@@ -205,7 +421,6 @@ const RichTextEditor = ({
     }), [value, readOnly, onChange, maxLength, placeholder, error, className])
 
     const editor = useEditor(editorConfig)
-
     const memoizedAddImage = useCallback(async () => {
         if (!editor || !onImageUpload) return
 
@@ -261,114 +476,14 @@ const RichTextEditor = ({
             .run()
     }, [editor])
 
-    const HeadingSelect = useMemo(() => {
-        return () => (
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="gap-2">
-                        <Type className="h-4 w-4" />
-                        <span>Heading</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                    <DropdownMenuLabel>Heading Level</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuRadioGroup
-                        value={
-                            editor?.isActive('heading', { level: 1 })
-                                ? 'h1'
-                                : editor?.isActive('heading', { level: 2 })
-                                    ? 'h2'
-                                    : editor?.isActive('heading', { level: 3 })
-                                        ? 'h3'
-                                        : 'p'
-                        }
-                    >
-                        <DropdownMenuRadioItem
-                            value="p"
-                            onClick={() => editor?.chain().focus().setParagraph().run()}
-                        >
-                            Paragraph
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem
-                            value="h1"
-                            onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()}
-                        >
-                            Heading 1
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem
-                            value="h2"
-                            onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
-                        >
-                            Heading 2
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem
-                            value="h3"
-                            onClick={() => editor?.chain().focus().toggleHeading({ level: 3 }).run()}
-                        >
-                            Heading 3
-                        </DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        )
-    }, [editor])
+    const Toolbar = useMemo(() => {
+        if (!editor) return null
 
-    const ColorSelect = useMemo(() => {
-        return () => (
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
-                        <Palette className="h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuLabel>Text Color</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {TEXT_COLORS.map((color) => (
-                        <DropdownMenuItem
-                            key={color.value}
-                            onClick={() => editor?.chain().focus().setColor(color.value).run()}
-                        >
-                            <div className="flex items-center gap-2">
-                                <div
-                                    className="h-4 w-4 rounded-full border"
-                                    style={{ backgroundColor: color.value }}
-                                />
-                                <span>{color.name}</span>
-                            </div>
-                        </DropdownMenuItem>
-                    ))}
-                    <DropdownMenuSeparator />
-                    <DropdownMenuLabel>Highlight Color</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {HIGHLIGHT_COLORS.map((color) => (
-                        <DropdownMenuItem
-                            key={color.value}
-                            onClick={() =>
-                                editor?.chain().focus().toggleHighlight({ color: color.value }).run()
-                            }
-                        >
-                            <div className="flex items-center gap-2">
-                                <div
-                                    className="h-4 w-4 rounded-full border"
-                                    style={{ backgroundColor: color.value }}
-                                />
-                                <span>{color.name}</span>
-                            </div>
-                        </DropdownMenuItem>
-                    ))}
-                </DropdownMenuContent>
-            </DropdownMenu>
-        )
-    }, [editor])
-
-    const renderToolbar = useMemo(() => {
-        return () => (
+        return (
             <div className="flex flex-wrap gap-1 p-1 border rounded-md bg-muted/50">
                 <div className="flex flex-wrap items-center gap-1 mr-2">
-                    <HeadingSelect />
-                    <ColorSelect />
+                    <HeadingSelect editor={editor} />
+                    <ColorSelect editor={editor} />
                 </div>
 
                 <Separator orientation="vertical" className="mx-1 h-8" />
@@ -376,22 +491,22 @@ const RichTextEditor = ({
                 <div className="flex flex-wrap items-center gap-1">
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('bold')}
-                        onPressedChange={() => editor?.chain().focus().toggleBold().run()}
+                        pressed={editor.isActive('bold')}
+                        onPressedChange={() => editor.chain().focus().toggleBold().run()}
                     >
                         <Bold className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('italic')}
-                        onPressedChange={() => editor?.chain().focus().toggleItalic().run()}
+                        pressed={editor.isActive('italic')}
+                        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
                     >
                         <Italic className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('underline')}
-                        onPressedChange={() => editor?.chain().focus().toggleUnderline().run()}
+                        pressed={editor.isActive('underline')}
+                        onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
                     >
                         <UnderlineIcon className="h-4 w-4" />
                     </Toggle>
@@ -402,22 +517,22 @@ const RichTextEditor = ({
                 <div className="flex flex-wrap items-center gap-1">
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('bulletList')}
-                        onPressedChange={() => editor?.chain().focus().toggleBulletList().run()}
+                        pressed={editor.isActive('bulletList')}
+                        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
                     >
                         <List className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('orderedList')}
-                        onPressedChange={() => editor?.chain().focus().toggleOrderedList().run()}
+                        pressed={editor.isActive('orderedList')}
+                        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
                     >
                         <ListOrdered className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('taskList')}
-                        onPressedChange={() => editor?.chain().focus().toggleTaskList().run()}
+                        pressed={editor.isActive('taskList')}
+                        onPressedChange={() => editor.chain().focus().toggleTaskList().run()}
                     >
                         <CheckSquare className="h-4 w-4" />
                     </Toggle>
@@ -435,7 +550,7 @@ const RichTextEditor = ({
                     <Button variant="ghost" size="sm" onClick={memoizedAddYoutubeVideo}>
                         <YoutubeIcon className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => editor?.chain().focus().toggleCodeBlock().run()}>
+                    <Button variant="ghost" size="sm" onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
                         <FileCode className="h-4 w-4" />
                     </Button>
                 </div>
@@ -445,29 +560,29 @@ const RichTextEditor = ({
                 <div className="flex flex-wrap items-center gap-1">
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive({ textAlign: 'left' })}
-                        onPressedChange={() => editor?.chain().focus().setTextAlign('left').run()}
+                        pressed={editor.isActive({ textAlign: 'left' })}
+                        onPressedChange={() => editor.chain().focus().setTextAlign('left').run()}
                     >
                         <AlignLeft className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive({ textAlign: 'center' })}
-                        onPressedChange={() => editor?.chain().focus().setTextAlign('center').run()}
+                        pressed={editor.isActive({ textAlign: 'center' })}
+                        onPressedChange={() => editor.chain().focus().setTextAlign('center').run()}
                     >
                         <AlignCenter className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive({ textAlign: 'right' })}
-                        onPressedChange={() => editor?.chain().focus().setTextAlign('right').run()}
+                        pressed={editor.isActive({ textAlign: 'right' })}
+                        onPressedChange={() => editor.chain().focus().setTextAlign('right').run()}
                     >
                         <AlignRight className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive({ textAlign: 'justify' })}
-                        onPressedChange={() => editor?.chain().focus().setTextAlign('justify').run()}
+                        pressed={editor.isActive({ textAlign: 'justify' })}
+                        onPressedChange={() => editor.chain().focus().setTextAlign('justify').run()}
                     >
                         <AlignJustify className="h-4 w-4" />
                     </Toggle>
@@ -478,15 +593,15 @@ const RichTextEditor = ({
                 <div className="flex flex-wrap items-center gap-1">
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('superscript')}
-                        onPressedChange={() => editor?.chain().focus().toggleSuperscript().run()}
+                        pressed={editor.isActive('superscript')}
+                        onPressedChange={() => editor.chain().focus().toggleSuperscript().run()}
                     >
                         <SuperscriptIcon className="h-4 w-4" />
                     </Toggle>
                     <Toggle
                         size="sm"
-                        pressed={editor?.isActive('subscript')}
-                        onPressedChange={() => editor?.chain().focus().toggleSubscript().run()}
+                        pressed={editor.isActive('subscript')}
+                        onPressedChange={() => editor.chain().focus().toggleSubscript().run()}
                     >
                         <SubscriptIcon className="h-4 w-4" />
                     </Toggle>
@@ -499,11 +614,11 @@ const RichTextEditor = ({
                         variant="ghost"
                         size="sm"
                         onClick={memoizedAddLink}
-                        className={cn(editor?.isActive('link') && 'bg-muted')}
+                        className={cn(editor.isActive('link') && 'bg-muted')}
                     >
                         <LinkIcon className="h-4 w-4" />
                     </Button>
-                    {editor?.isActive('link') && (
+                    {editor.isActive('link') && (
                         <Button
                             variant="ghost"
                             size="sm"
@@ -520,124 +635,23 @@ const RichTextEditor = ({
                     <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => editor?.chain().focus().undo().run()}
-                        disabled={!editor?.can().undo()}
+                        onClick={() => editor.chain().focus().undo().run()}
+                        disabled={!editor.can().undo()}
                     >
                         <Undo className="h-4 w-4" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => editor?.chain().focus().redo().run()}
-                        disabled={!editor?.can().redo()}
+                        onClick={() => editor.chain().focus().redo().run()}
+                        disabled={!editor.can().redo()}
                     >
                         <Redo className="h-4 w-4" />
                     </Button>
                 </div>
             </div>
         )
-    }, [editor, memoizedAddImage, memoizedAddYoutubeVideo, memoizedAddLink, memoizedAddTable])
-
-    const FloatingMenuContent = () => {
-        if (!editor) return null
-
-        return (
-            <div className="flex items-center gap-1 p-1 border rounded-lg bg-background shadow-md">
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                >
-                    <Heading1 className="h-4 w-4" />
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().toggleBulletList().run()}
-                >
-                    <List className="h-4 w-4" />
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().toggleTaskList().run()}
-                >
-                    <CheckSquare className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="sm" onClick={memoizedAddImage}>
-                    <ImageIcon className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="sm" onClick={memoizedAddTable}>
-                    <TableIcon className="h-4 w-4" />
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-                >
-                    <Code className="h-4 w-4" />
-                </Button>
-            </div>
-        )
-    }
-
-    const TableButtons = () => {
-        if (!editor?.isActive('table')) return null
-
-        return (
-            <div className="fixed bottom-4 right-4 flex items-center gap-2 p-2 border rounded-lg bg-background shadow-md">
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().addColumnBefore().run()}
-                >
-                    Add Column Before
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().addColumnAfter().run()}
-                >
-                    Add Column After
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().addRowBefore().run()}
-                >
-                    Add Row Before
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().addRowAfter().run()}
-                >
-                    Add Row After
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().deleteColumn().run()}
-                >
-                    Delete Column
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().deleteRow().run()}
-                >
-                    Delete Row
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => editor.chain().focus().deleteTable().run()}
-                >
-                    Delete Table
-                </Button>
-            </div>
-        )
-    }
+    }, [editor, memoizedAddImage, memoizedAddTable, memoizedAddYoutubeVideo, memoizedAddLink])
 
     if (!editor) {
         return null
@@ -645,86 +659,58 @@ const RichTextEditor = ({
 
     return (
         <div className="relative space-y-2">
-            {!readOnly && renderToolbar()}
+            {!readOnly && editor && Toolbar}
 
-            {editor && !readOnly && (
+            {!readOnly && (
                 <>
-                    <BubbleMenu
-                        editor={editor}
-                        tippyOptions={{ 
-                            duration: 100,
-                            placement: 'top',
-                            popperOptions: {
-                                modifiers: [
-                                    {
-                                        name: 'flip',
-                                        options: {
-                                            fallbackPlacements: ['bottom'],
-                                        },
-                                    },
-                                ],
-                            },
-                        }}
-                        className="flex overflow-hidden rounded-md border bg-background shadow-md"
-                    >
-                        <Toggle
-                            size="sm"
-                            pressed={editor.isActive('bold')}
-                            onPressedChange={() => editor.chain().focus().toggleBold().run()}
-                        >
-                            <Bold className="h-4 w-4" />
-                        </Toggle>
-                        <Toggle
-                            size="sm"
-                            pressed={editor.isActive('italic')}
-                            onPressedChange={() => editor.chain().focus().toggleItalic().run()}
-                        >
-                            <Italic className="h-4 w-4" />
-                        </Toggle>
-                        <Toggle
-                            size="sm"
-                            pressed={editor.isActive('strike')}
-                            onPressedChange={() => editor.chain().focus().toggleStrike().run()}
-                        >
-                            <UnderlineIcon className="h-4 w-4" />
-                        </Toggle>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={memoizedAddLink}
-                            className={cn(editor.isActive('link') && 'bg-muted')}
-                        >
-                            <LinkIcon className="h-4 w-4" />
-                        </Button>
-                        <ColorSelect />
+                    <BubbleMenu editor={editor} tippyOptions={TIPPY_OPTIONS}>
+                        <div className="flex overflow-hidden rounded-md border bg-background shadow-md">
+                            <Toggle
+                                size="sm"
+                                pressed={editor.isActive('bold')}
+                                onPressedChange={() => editor.chain().focus().toggleBold().run()}
+                            >
+                                <Bold className="h-4 w-4" />
+                            </Toggle>
+                            <Toggle
+                                size="sm"
+                                pressed={editor.isActive('italic')}
+                                onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+                            >
+                                <Italic className="h-4 w-4" />
+                            </Toggle>
+                            <Toggle
+                                size="sm"
+                                pressed={editor.isActive('strike')}
+                                onPressedChange={() => editor.chain().focus().toggleStrike().run()}
+                            >
+                                <UnderlineIcon className="h-4 w-4" />
+                            </Toggle>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={memoizedAddLink}
+                                className={cn(editor.isActive('link') && 'bg-muted')}
+                            >
+                                <LinkIcon className="h-4 w-4" />
+                            </Button>
+                            <ColorSelect editor={editor} />
+                        </div>
                     </BubbleMenu>
 
-                    <FloatingMenu
-                        editor={editor}
-                        tippyOptions={{ 
-                            duration: 100,
-                            placement: 'top',
-                            popperOptions: {
-                                modifiers: [
-                                    {
-                                        name: 'flip',
-                                        options: {
-                                            fallbackPlacements: ['bottom'],
-                                        },
-                                    },
-                                ],
-                            },
-                        }}
-                        className="flex overflow-hidden rounded-md border bg-background shadow-md"
-                    >
-                        <FloatingMenuContent />
+                    <FloatingMenu editor={editor} tippyOptions={TIPPY_OPTIONS}>
+                        <FloatingMenuContent
+                            editor={editor}
+                            onImageAdd={memoizedAddImage}
+                            onTableAdd={memoizedAddTable}
+                        />
                     </FloatingMenu>
                 </>
             )}
 
             <div className="relative">
                 <EditorContent editor={editor} />
-                <TableButtons />
+                <TableButtons editor={editor} />
 
                 {maxLength && (
                     <div className="absolute bottom-2 right-2 text-xs text-muted-foreground">
@@ -735,5 +721,7 @@ const RichTextEditor = ({
         </div>
     )
 }
+
+RichTextEditor.displayName = 'RichTextEditor'
 
 export default React.memo(RichTextEditor)

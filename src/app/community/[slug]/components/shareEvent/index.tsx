@@ -11,8 +11,7 @@ import { motion } from 'framer-motion';
 
 interface ShareDropDownType {
     event: EventType | null,
-    setShowShareOptions: any
-
+    setShowShareOptions: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ShareDropdown: React.FC<ShareDropDownType> = ({ event, setShowShareOptions }) => {
@@ -47,8 +46,8 @@ const ShareDropdown: React.FC<ShareDropDownType> = ({ event, setShowShareOptions
         try {
             await navigator.clipboard.writeText(url);
             toast.success('Link copied to clipboard!');
-        } catch (err: any) {
-            toast.error('Failed to copy link:', err);
+        } catch {
+            toast.error('Failed to copy link');
         }
     };
 

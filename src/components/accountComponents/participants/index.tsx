@@ -5,29 +5,12 @@ import Link from 'next/link'
 import { useUserEvents } from '@/lib/events/client/useUserEvents'
 import { useAuth } from '@/context/AuthContext'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-} from '@/components/ui/tabs'
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from '@/components/ui/accordion'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Skeleton } from '@/components/ui/skeleton'
-import {
-    Calendar,
-    Users,
-    UserCircle,
-    Crown,
-    CalendarDays,
-} from 'lucide-react'
+import { Calendar, Users, UserCircle, Crown, CalendarDays } from 'lucide-react'
 import { User } from '@/types/common'
 import LoadingScreen from '@/animation/loading/Loading'
 
@@ -53,20 +36,6 @@ interface AuthContextType {
     user: AuthUser | null
 }
 
-const LoadingState = () => (
-    <div className="space-y-4">
-        {Array.from({ length: 3 }).map((_, i) => (
-            <Card key={i}>
-                <CardHeader>
-                    <Skeleton className="h-8 w-[200px]" />
-                </CardHeader>
-                <CardContent>
-                    <Skeleton className="h-24 w-full" />
-                </CardContent>
-            </Card>
-        ))}
-    </div>
-)
 
 const EmptyState = ({ message }: { message: string }) => (
     <Card>
@@ -105,6 +74,8 @@ const EventCard: React.FC<EventCardProps> = ({ event, isOwner = false }) => {
     })
 
     const participantsCount = event.EventParticipants?.length ?? 0
+
+    
 
     return (
         <Card className="mb-4">

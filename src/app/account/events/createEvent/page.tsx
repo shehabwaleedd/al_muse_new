@@ -147,12 +147,6 @@ const CreateEvent: React.FC = () => {
     const handleSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
         const formData = new FormData();
     
-        // Helper function to safely append to formData
-        const appendIfValue = (key: string, value: any) => {
-            if (value !== undefined && value !== null && value !== '') {
-                formData.append(key, value);
-            }
-        };
     
         // Handle main image
         if (mainImg instanceof File) {
@@ -166,7 +160,7 @@ const CreateEvent: React.FC = () => {
     
         // Handle multiple images
         if (uploadedImages.length > 0) {
-            uploadedImages.forEach((image, index) => {
+            uploadedImages.forEach((image) => {
                 if (image.file instanceof File) {
                     formData.append(`images`, image.file); // Keep the same key for multiple files
                 }
@@ -204,12 +198,7 @@ const CreateEvent: React.FC = () => {
             }
         });
     
-        // Add console.log for debugging
-        console.log('Form Values:', values);
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
-    
+
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/event`, formData, {
                 headers: {
@@ -252,7 +241,7 @@ const CreateEvent: React.FC = () => {
                         <Form className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="title">Event's Title</Label>
+                                    <Label htmlFor="title">Event&apos;s Title</Label>
                                     <Input 
                                         id="title" 
                                         name="title" 
@@ -264,7 +253,7 @@ const CreateEvent: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="dateOfEvent">Event's Date</Label>
+                                    <Label htmlFor="dateOfEvent">Event&apos;s Date</Label>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <Button
@@ -356,7 +345,7 @@ const CreateEvent: React.FC = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="timeOfEvent.from">Event's Start Time</Label>
+                                    <Label htmlFor="timeOfEvent.from">Event&apos;s Start Time</Label>
                                     <Select 
                                         name="timeOfEvent.from" 
                                         onValueChange={(value) => {
@@ -380,7 +369,7 @@ const CreateEvent: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="timeOfEvent.to">Event's End Time</Label>
+                                    <Label htmlFor="timeOfEvent.to">Event&apos;s End Time</Label>
                                     <Select 
                                         name="timeOfEvent.to" 
                                         onValueChange={(value) => setFieldValue('timeOfEvent.to', value)}
@@ -428,7 +417,7 @@ const CreateEvent: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="category">Event's Category</Label>
+                                    <Label htmlFor="category">Event&apos;s Category</Label>
                                     <Select name="category" onValueChange={(value: Category) => setFieldValue('category', value)}>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select category" />
@@ -446,7 +435,7 @@ const CreateEvent: React.FC = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <Label>Event's Location</Label>
+                                <Label>Event&apos;s Location</Label>
                                 <RadioGroup defaultValue="online" onValueChange={(value: 'online' | 'offline') => {
                                     setEventLocationType(value);
                                     setFieldValue('location', value);
@@ -479,7 +468,7 @@ const CreateEvent: React.FC = () => {
 
                             {eventLocationType === 'offline' && (
                                 <div className="space-y-2">
-                                    <Label htmlFor="locationDetails">Event's Location Details</Label>
+                                    <Label htmlFor="locationDetails">Event&apos;s Location Details</Label>
                                     <Textarea
                                         id="locationDetails"
                                         name="locationDetails"

@@ -3,10 +3,11 @@ import { m, LazyMotion, domAnimation } from 'framer-motion';
 import Image from 'next/image';
 import styles from '../page.module.scss';
 import Data from '../Data';
+import { MotionValue } from 'framer-motion';
 
 interface ColumnProps {
     data: typeof Data;
-    transform: any; 
+    transform: MotionValue<number>;
 }
 
 const Column: React.FC<ColumnProps> = ({ data, transform }) => {

@@ -3,7 +3,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useFormik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import styles from './page.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,6 +25,12 @@ interface FormValues {
     company: string;
     position: string;
     gender: string;
+}
+
+interface ErrorResponse {
+    err?: string;
+    message?: string;
+    errors?: Array<{ message: string }>;
 }
 
 const validationSchema = yup.object({
@@ -81,11 +87,11 @@ const Register: React.FC = () => {
         validationSchema,
         onSubmit: async (values, { setSubmitting }: FormikHelpers<FormValues>) => {
             const formData = new FormData();
-            
+
             Object.keys(values).forEach(key => {
                 const value = values[key as keyof FormValues];
-                const sanitizedValue = typeof value === 'string' 
-                    ? DOMPurify.sanitize(value).trim() 
+                const sanitizedValue = typeof value === 'string'
+                    ? DOMPurify.sanitize(value).trim()
                     : value;
                 formData.append(key, sanitizedValue);
             });
@@ -101,8 +107,24 @@ const Register: React.FC = () => {
                     localStorage.setItem('token', response.data.token);
                     router.push('/register/verify'); // Navigate to verify page
                 }
-            } catch (error: any) {
-                toast.error(error.response?.data.message || 'An error occurred');
+            } catch (err) {
+                let errorMessage = 'An unexpected error occurred during login.';
+
+                if (axios.isAxiosError(err)) {
+                    const error = err as AxiosError<ErrorResponse>;
+                    if (error.response?.data) {
+                        const errorData = error.response.data;
+                        if (errorData.err) {
+                            errorMessage = errorData.err;
+                        } else if (errorData.message) {
+                            errorMessage = errorData.message;
+                        } else if (errorData.errors) {
+                            errorMessage = errorData.errors.map(e => e.message).join('\n');
+                        }
+                    }
+                }
+
+                toast.error(errorMessage);
             } finally {
                 setSubmitting(false);
             }
