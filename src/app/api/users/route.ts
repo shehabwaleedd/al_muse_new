@@ -6,12 +6,11 @@ export async function PATCH(
     context: { params: { id: string } }
 ) {
     try {
-        const headersList = await headers(); // Await headers() to get the ReadonlyHeaders object
+        const headersList = await headers();
         const token = headersList.get('token');
         const { role } = await request.json();
-        const { id } = context.params;
 
-        const response = await fetch(`${process.env.API_URL}/user/convertUserRole/${id}`, {
+        const response = await fetch(`${process.env.API_URL}/user/convertUserRole/${context.params.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,8 +29,7 @@ export async function PATCH(
         }
 
         return NextResponse.json(data);
-    } catch (error) {
-        console.error(error);
+    } catch {
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 }
