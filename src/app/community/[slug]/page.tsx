@@ -32,10 +32,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function EventPage({ params }: { params: { slug: string } }) {
+export default async function EventPage({
+    params,
+}: Awaited<{ params: { slug: string } }>) {
     try {
-        const event = await getEventBySlug(params.slug);
-        const base64 = await getBase64(event.data.mainImg.url);
+        const event = await getEventBySlug(params.slug); // Resolving the event data
+        const base64 = await getBase64(event.data.mainImg.url); // Resolving the base64 image
 
         return (
             <>
