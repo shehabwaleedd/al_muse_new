@@ -1,8 +1,9 @@
 import { type Metadata } from 'next';
 import Client from './(components)/Client';
 
-interface PageProps {
+interface Props {
     params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export const metadata: Metadata = {
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
     description: 'Edit your event details',
 };
 
-export default async function EditEventPage({ params }: PageProps) {
-    return <Client slug={params.slug} />;
+export default async function EditEventPage({ params }: Props) {
+    const slug = params.slug;
+
+    return <Client slug={slug} />;
 }
