@@ -450,7 +450,7 @@ $playlist-font: $font-playList;
     color: $color;
     font-size: $normal-font-size;
     padding: $spacing-sm $spacing-md;
-    border-radius: 0px;
+    border-radius: 1rem;
     width: fit-content;
     height: 40px;
     font-weight: bold;
@@ -464,6 +464,7 @@ $playlist-font: $font-playList;
     &:hover {
         box-shadow: 0 0 0 0 rgba($color, 1);
     }
+    
 }
 
 @mixin input-base {
