@@ -19,8 +19,8 @@ const ShareDropdown = dynamic(() => import('./shareEvent'));
 const RenderParticipants = dynamic(() => import('./renderParticipants'));
 
 
-const EventComponent: React.FC<EventComponentProps> = ({ params, base64 }) => {
-    const { event, loading, error } = useEventBySlug(params.slug);
+const EventComponent: React.FC<EventComponentProps> = ({ slug, base64 }) => {
+    const { event, loading, error } = useEventBySlug(slug);
     const [showShareOptions, setShowShareOptions] = useState(false);
     const [hasParticipated, setHasParticipated] = useState(false);
     const { user, isLoggedIn } = useAuth();
