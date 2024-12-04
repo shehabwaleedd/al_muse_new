@@ -48,11 +48,8 @@ interface ImageUploaderProps {
     label: string;
 }
 
-interface PageProps {
-    params: {
-        slug: string;
-    };
-    searchParams: { [key: string]: string | string[] | undefined };
+interface EditEventProps {
+    slug: string;
 }
 
 const validationSchema = Yup.object({
@@ -148,14 +145,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ mainImg, setMainImg, labe
     );
 };
 
-const EditEvent: React.FC<PageProps> = ({ params }) => {
-    
+const EditEvent: React.FC<EditEventProps> = ({ slug }) => {
     const router = useRouter();
     const [mainImg, setMainImg] = useState<File | string | null>(null);
     const [seoImage, setSeoImage] = useState<File | string | null>(null);
     const [uploadedImages, setUploadedImages] = useState<Image[]>([]);
     const [date, setDate] = useState<Date | null>(null);
-    const { event, loading } = useEventBySlug(params.slug);
+    const { event, loading } = useEventBySlug(slug);
 
     useEffect(() => {
         if (event) {
@@ -175,7 +171,7 @@ const EditEvent: React.FC<PageProps> = ({ params }) => {
     const handleSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>): Promise<void> => {
         try {
             const formData = new FormData();
-
+            
             // Create a new object with only the fields we want to send
             const sanitizedValues = {
                 title: values.title,
@@ -189,8 +185,8 @@ const EditEvent: React.FC<PageProps> = ({ params }) => {
                 googleMapLink: values.googleMapLink,
                 seoKeywords: values.seoKeywords,
                 // Conditionally add link or locationDetails based on location type
-                ...(values.location === 'online'
-                    ? { link: values.link }
+                ...(values.location === 'online' 
+                    ? { link: values.link } 
                     : { locationDetails: values.locationDetails }
                 )
             };
