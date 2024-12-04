@@ -3,14 +3,15 @@ import { headers } from 'next/headers';
 
 export async function PATCH(
     request: Request,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
     try {
-        const headersList = await headers();
+        const headersList = await headers(); // Await headers() to get the ReadonlyHeaders object
         const token = headersList.get('token');
         const { role } = await request.json();
+        const { id } = context.params;
 
-        const response = await fetch(`${process.env.API_URL}/user/convertUserRole/${params.id}`, {
+        const response = await fetch(`${process.env.API_URL}/user/convertUserRole/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
