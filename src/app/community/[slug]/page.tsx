@@ -42,7 +42,7 @@ export default async function EventPage({
         return (
             <>
                 <EventComponent 
-                    params={params} 
+                    params={params.slug} 
                     base64={base64 ?? ''} 
                 />
             </>

@@ -20,7 +20,7 @@ export interface EventParticipant {
 
 
 export interface EventComponentProps {
-    params: { slug: string };
+    params: string;
     base64: string;
 }
 
