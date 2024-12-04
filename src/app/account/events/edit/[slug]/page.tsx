@@ -2,10 +2,7 @@ import { type Metadata } from 'next';
 import Client from './(components)/Client';
 
 type Props = {
-    params: {
-        slug: string;
-    };
-    searchParams?: Record<string, string | string[] | undefined>;
+    params: Promise<{ slug: string }>;
 };
 
 export const metadata: Metadata = {
@@ -13,8 +10,9 @@ export const metadata: Metadata = {
     description: 'Edit your event details',
 };
 
-
 export default async function EditEventPage({ params }: Props) {
+    // Resolve the params promise
+    const resolvedParams = await params;
 
-    return <Client slug={params.slug} />;
+    return <Client slug={resolvedParams.slug} />;
 }
